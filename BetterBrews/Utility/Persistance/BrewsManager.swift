@@ -27,18 +27,10 @@ struct BrewsManager {
         newBrew.brewTime = Double(brew.brewTime!)
         
         //Units
-<<<<<<< HEAD
         newBrew.coffeeUnit = brew.coffeeUnit
         newBrew.waterVolumeUnit = brew.waterVolumeUnit
         print(brew.coffeeUnit.rawValue)
         newBrew.temperatureUnit = brew.temperatureUnit
-=======
-        newBrew.coffeeUnitString = brew.coffeeUnit.rawValue
-        newBrew.waterVolumeUnitString = brew.waterVolumeUnit.rawValue
-        print(brew.coffeeUnit.rawValue)
-        newBrew.temperatureUnitString = brew.temperatureUnit.rawValue
-
->>>>>>> 13700549c246f75eeacfe50be3be30be84e49bfd
         PersistenceController.saveContext()
         print("Brew Created and Saved")
     }

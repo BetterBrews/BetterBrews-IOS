@@ -23,24 +23,11 @@ struct BrewTimerView: View {
         UITableView.appearance().backgroundColor = UIColor(named: "tan")
         
         return
-<<<<<<< HEAD
             VStack(alignment: .leading, spacing: 0) {
                 timerSection
                 logEntrySection
             }
             .edgesIgnoringSafeArea(.bottom)
-=======
-            ZStack {
-                Color("tan")
-                    .ignoresSafeArea()
-                VStack(alignment: .leading, spacing: 0) {
-                    timerSection
-                    logEntrySection
-                }
-                .padding(.vertical)
-                .edgesIgnoringSafeArea(.bottom)
-            }
->>>>>>> 13700549c246f75eeacfe50be3be30be84e49bfd
             .navigationBarTitle("Brew Timer")
             .navigationBarTitleDisplayMode(.inline)
     }
@@ -58,7 +45,7 @@ struct BrewTimerView: View {
             }
             finishButton
             Spacer()
-        }--allow-unrelated-histories
+        }
         .background(Color("tan"))
     }
     
@@ -69,33 +56,21 @@ struct BrewTimerView: View {
                     .bold()
                     .font(.title)
                 Spacer()
-<<<<<<< HEAD
                 /*EditButton()
                     .foregroundColor(AppStyle.bodyTextColor)
                  */
-=======
-                EditButton()
-                    .foregroundColor(AppStyle.bodyTextColor)
->>>>>>> 13700549c246f75eeacfe50be3be30be84e49bfd
             }
         }
         
         return
-<<<<<<< HEAD
             VStack(alignment: .leading) {
                 logEntrySectionHeader
                 Divider()
                 Spacer()
-=======
-            VStack(alignment: .leading, spacing: viewConstants.logFieldSpacing) {
-                logEntrySectionHeader
-                Divider()
->>>>>>> 13700549c246f75eeacfe50be3be30be84e49bfd
                 logEntryRow(label: "Brewed with", value: newBrew.brew.brewEquipment)
                 logEntryRow(label: "Beans Used", value: newBrew.brew.bean!.name!)
                 logEntryRow(label: "Grind Size", value: newBrew.brew.grindSizeString!)
                 logEntryRow(label: "Coffee Amount", value: (newBrew.brew.coffeeAmountString + newBrew.brew.coffeeUnit.rawValue))
-<<<<<<< HEAD
                 logEntryRow(label: "Water Amount", value: String(newBrew.brew.waterAmount!))
                 logEntryRow(label: "Water Temperature", value: (newBrew.brew.temperatureString + newBrew.brew.temperatureUnit.rawValue))
                 Spacer()
@@ -116,25 +91,6 @@ struct BrewTimerView: View {
             .font(.headline)
             Spacer(minLength: 0)
         }
-=======
-                logEntryRow(label: "Water Amount", value: "TODO")
-                logEntryRow(label: "Water Temperature", value: (newBrew.brew.temperatureString + newBrew.brew.temperatureUnit.rawValue))
-                Spacer()
-            }
-            .foregroundColor(Color("black"))
-            .padding()
-            .background(Color("lightTan"))
-            .edgesIgnoringSafeArea(.bottom)
-    }
-    
-    func logEntryRow(label: String, value: String) -> some View {
-        HStack {
-            Text(label + ":")
-            Spacer()
-            Text(value)
-        }
-        .font(.headline)
->>>>>>> 13700549c246f75eeacfe50be3be30be84e49bfd
     }
     var pauseButton: some View {
         Button(action: pauseTimer) {
@@ -149,11 +105,7 @@ struct BrewTimerView: View {
                 RoundedRectangle(cornerRadius: 20)
                     .foregroundColor(Color("brown"))
             )
-<<<<<<< HEAD
             .padding(.horizontal)
-=======
-            .padding()
->>>>>>> 13700549c246f75eeacfe50be3be30be84e49bfd
         }
     }
     var startButton: some View {
@@ -169,11 +121,7 @@ struct BrewTimerView: View {
                 RoundedRectangle(cornerRadius: 20)
                     .foregroundColor(Color("brown"))
             )
-<<<<<<< HEAD
             .padding(.horizontal)
-=======
-            .padding()
->>>>>>> 13700549c246f75eeacfe50be3be30be84e49bfd
         }
     }
     
@@ -240,9 +188,6 @@ struct BrewTimerView_Previews: PreviewProvider {
             BrewTimerView(showSelf: .constant(true), newBrew: newBrew)
                 .environmentObject(GlobalSettings())
         }
-<<<<<<< HEAD
         .previewDevice("iPod touch (7th generation)")
-=======
->>>>>>> 13700549c246f75eeacfe50be3be30be84e49bfd
     }
 }

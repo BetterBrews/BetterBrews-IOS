@@ -11,11 +11,7 @@ struct LogView: View {
     //MARK: State
     @EnvironmentObject var brews: EquipmentList
     @EnvironmentObject var settings: GlobalSettings
-<<<<<<< HEAD
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "date", ascending: false)])
-=======
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "date", ascending: true)])
->>>>>>> 13700549c246f75eeacfe50be3be30be84e49bfd
     private var pastBrews: FetchedResults<PastBrew>
     
     @State private var filter = EquipmentFilter.allBrews
@@ -79,11 +75,7 @@ struct LogView: View {
     
     func listDateHeader(_ brewDate: Date?) -> some View {
         return
-<<<<<<< HEAD
             Text(brewDate!.stringFromDate())
-=======
-            Text(stringFromDate(brewDate!))
->>>>>>> 13700549c246f75eeacfe50be3be30be84e49bfd
                 .font(.title)
                 .bold()
                 .foregroundColor(Color("black"))
@@ -91,16 +83,6 @@ struct LogView: View {
                 .padding(.horizontal)
     }
     
-<<<<<<< HEAD
-=======
-    private func stringFromDate(_ date: Date) -> String{
-        let dateFormatterPrint = DateFormatter()
-        dateFormatterPrint.dateFormat = "MMM dd,yyyy"
-        return dateFormatterPrint.string(from: date)
-    }
-    
-    
->>>>>>> 13700549c246f75eeacfe50be3be30be84e49bfd
     var emptyBrewList: some View {
         VStack {
             Spacer()
@@ -159,13 +141,8 @@ struct LogView: View {
                 HStack {
                     Text(brew.equipment ?? "Brew")
                         .bold()
-<<<<<<< HEAD
                         .font(.title2)
                         .foregroundColor(Color("gold"))
-=======
-                        .font(.title3)
-                        .foregroundColor(Color(.white))
->>>>>>> 13700549c246f75eeacfe50be3be30be84e49bfd
                     Spacer()
                 }
                 .padding()

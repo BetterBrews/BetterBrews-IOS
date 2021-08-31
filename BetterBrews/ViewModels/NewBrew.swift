@@ -15,14 +15,6 @@ class NewBrew: ObservableObject {
     }
     
     func save() {
-<<<<<<< HEAD
-=======
-        //
-        //
-        //  UPDATE THIS
-        //
-        //
->>>>>>> 13700549c246f75eeacfe50be3be30be84e49bfd
         BrewsManager.saveBrew(brew)
     }
     
