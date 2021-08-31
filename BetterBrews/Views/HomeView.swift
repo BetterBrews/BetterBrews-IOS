@@ -188,16 +188,14 @@ var brewCardCarousel: some View {
         VStack {
             GeometryReader { cardGeo in
                 VStack(alignment: .leading, spacing: 0) {
-                    HStack {
-                        Text(brew.name)
-                            .font(.title)
-                            .bold()
-                            .foregroundColor(Color("gold"))
-                        Spacer()
-                        Text(String(Int(cardGeo.size.height)))
-                            .foregroundColor(.white)
-                    }
-                    VStack(alignment: .leading, spacing: 0) {
+                    VStack(alignment: .leading, spacing: cardGeo.size.height/viewConstants.spacingHeightFactor) {
+                        HStack {
+                            Text(brew.name)
+                                .font(.title)
+                                .bold()
+                                .foregroundColor(Color("gold"))
+                            Spacer()
+                        }
                         HStack {
                             Text("Type:")
                                 .foregroundColor(Color("lightTan"))
@@ -335,10 +333,12 @@ var brewCardCarousel: some View {
                 Spacer()
             }
             else {
-                VStack(spacing: viewConstants.recentlyUsedSpacing) {
+                VStack() {
                     ScrollView {
-                        ForEach(pastBrews) { brew in
-                            recentCard(brew)
+                        VStack(spacing: viewConstants.recentlyUsedSpacing) {
+                            ForEach(pastBrews) { brew in
+                                recentCard(brew)
+                            }
                         }
                     }
                 }
@@ -353,7 +353,7 @@ var brewCardCarousel: some View {
             RoundedRectangle(cornerRadius: 25.0)
                 .foregroundColor(Color("black"))
             HStack {
-                VStack(alignment: .leading, spacing: viewConstants.cardListSpacing) {
+                VStack(alignment: .leading, spacing: viewConstants.recentCardSpacing) {
                     HStack {
                         Text(brew.equipment!)
                             .font(.headline)
@@ -364,11 +364,10 @@ var brewCardCarousel: some View {
                         Text("Last Used:")
                             .font(.caption)
                             .foregroundColor(.white)
-                        //Text(brew.date!.stringFromDate())
+                        Text(brew.date!.stringFromDate())
                             .font(.caption)
                             .foregroundColor(.white)
                     }
-                    //.padding(.vertical, 5)
                 }
                 Image(systemName: "chevron.right")
                     .foregroundColor(AppStyle.accentColor)
@@ -385,7 +384,6 @@ var brewCardCarousel: some View {
         static let settingsIconName = "gear"
         
         /* Card Carousel */
-        static let cardListSpacing: CGFloat = 3
         static let cardPadding: CGFloat = 20
         static let cardWidthScale: CGFloat = 1/2.5
         static let cardHeightScale: CGFloat = 1/2.7
@@ -395,6 +393,7 @@ var brewCardCarousel: some View {
         static let hiddenCardWidth: CGFloat = 50
         static let methodCardCornerRadius: CGFloat  = 40
         static let cardWidth: CGFloat = UIScreen.main.bounds.width - (viewConstants.hiddenCardWidth*2) - (viewConstants.cardSpacing*2)
+        static let spacingHeightFactor: CGFloat = 45
         
         /* Menu Bar */
         static let menuBarPadding: CGFloat = 10
@@ -402,7 +401,8 @@ var brewCardCarousel: some View {
         static let menuButtonCornerRadius: CGFloat = 25
         
         /* Recently Used */
-        static let recentlyUsedSpacing: CGFloat = 15
+        static let recentlyUsedSpacing: CGFloat = 20
+        static let recentCardSpacing: CGFloat = 10
     }
 }
 
@@ -412,7 +412,7 @@ struct ContentView_Previews: PreviewProvider {
 
     static var previews: some View {
         HomeView()
-            .previewDevice("iPhone 8")
+            .previewDevice("iPhone 12 Pro Max")
             .preferredColorScheme(.light)
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
             .environmentObject(equipment)
