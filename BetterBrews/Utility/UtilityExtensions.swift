@@ -18,4 +18,14 @@ extension String {
     }
 }
 
+<<<<<<< HEAD
+extension Date {
+    func stringFromDate() -> String {
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.dateFormat = "MMM dd,yyyy"
+        return dateFormatterPrint.string(from: self)
+    }
+}
+=======
 
+>>>>>>> 13700549c246f75eeacfe50be3be30be84e49bfd

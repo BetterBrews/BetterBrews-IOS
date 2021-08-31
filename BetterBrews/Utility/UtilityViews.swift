@@ -13,6 +13,10 @@ struct RoundedButton: View {
     var buttonImage: String?
     var isSelected: Bool
     var action: () -> Void
+<<<<<<< HEAD
+    var disabled: Bool?
+=======
+>>>>>>> 13700549c246f75eeacfe50be3be30be84e49bfd
     
     var body: some View {
         HStack {
@@ -23,6 +27,10 @@ struct RoundedButton: View {
                 Text(buttonText)
                     .foregroundColor(isSelected ? Color(.white) : Color(.white))
             }
+<<<<<<< HEAD
+            .disabled(isSelected ?? false)
+=======
+>>>>>>> 13700549c246f75eeacfe50be3be30be84e49bfd
         }
         .font(.subheadline)
         .foregroundColor(isSelected ? Color(.white) : Color("black"))
