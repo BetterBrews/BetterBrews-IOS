@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LogView: View {
     //MARK: State
-    @EnvironmentObject var brews: EquipmentList
+    @EnvironmentObject var brews: BrewEquipmentList
     @EnvironmentObject var settings: GlobalSettings
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "date", ascending: false)])
     private var pastBrews: FetchedResults<PastBrew>
@@ -59,7 +59,6 @@ struct LogView: View {
             }
             .background(Color("tan").ignoresSafeArea())
             .navigationBarTitle("Brew Log")
-            //.navigationBarTitleDisplayMode(.inline)
     }
     
     func deleteButton(_ brew: PastBrew) -> some View {
@@ -152,7 +151,8 @@ struct LogView: View {
                     logCardRow("Water Amount:", (String(brew.waterAmount) + brew.waterVolumeUnitString!), showDivider: true)
                     logCardRow("Water Temperature:", (String(brew.waterTemp) + temperatureUnitString), showDivider: true)
                     logCardRow("Brew Time:", String(format: "%2d:%02d", brew.timeMinutes(), brew.timeSeconds()), showDivider: true)
-                    logCardRow("Rating:", "TODO", showDivider: true)
+                    logCardRow("Rating:", String(brew.rating), showDivider: false)
+                    //logCardRow("Rating:", String(brew.rating), showDivider: false)
                 }
                 .padding([.horizontal, .bottom])
             }
@@ -189,7 +189,7 @@ struct LogView: View {
 
 
 struct LogView_Previews: PreviewProvider {
-    static let brewList = EquipmentList([BrewEquipment(id: 0, name: "Aero", type: "good", notes: "good", estTime: 5)])
+    static let brewList = BrewEquipmentList([BrewEquipment(id: 0, name: "Aero", type: "good", notes: "good", estTime: 5, filters: ["Immersion"])])
     static let globalSettings = GlobalSettings()
     
     static var previews: some View {

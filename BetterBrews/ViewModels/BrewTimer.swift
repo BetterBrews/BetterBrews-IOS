@@ -8,13 +8,27 @@
 import SwiftUI
 
 class BrewTimer: ObservableObject {
-    @Published var millisecondsElapsed: Int = 0
-    @Published var secondsElapsed: Int = 0
-    @Published var minutesElapsed: Int = 0
+    @Published var deciSecondsElapsed: Int = 0
+    var secondsElapsed: Int {
+        deciSecondsElapsed/10
+    }
+    var minutesElapsed: Int {
+        deciSecondsElapsed/600
+    }
+    
+    //Time formatted to be displayed on timer screen
+    var deciseconds: Int {
+        return deciSecondsElapsed%10
+    }
+    var seconds: Int {
+        return secondsElapsed%60
+    }
+    var minutes: Int {
+        return minutesElapsed
+    }
+    
     @Published var mode: TimerMode = .stopped
-    var secondsTimer: Timer?
-    var minutesTimer: Timer?
-    var millisecondsTimer: Timer?
+    var decisecondsTimer: Timer?
     
     func toggle() {
         if(mode == .running) {
@@ -26,6 +40,7 @@ class BrewTimer: ObservableObject {
     }
     
     func pause() {
+        decisecondsTimer?.invalidate()
         mode = .paused
     }
     
@@ -34,45 +49,16 @@ class BrewTimer: ObservableObject {
             return
         }
         mode = .running
-        millisecondsTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
+        decisecondsTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
             if(self?.mode == .running) {
-                if(self?.millisecondsElapsed == 9) {
-                    self?.millisecondsElapsed = 0
-                }
-                else {
-                    self?.millisecondsElapsed += 1
-                }
-            }
-        }
-        secondsTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
-            if(self?.mode == .running) {
-                if(self?.secondsElapsed == 59) {
-                    self?.secondsElapsed = 0
-                }
-                else {
-                    self?.secondsElapsed += 1
-                }
-            }
-        }
-        minutesTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] timer in
-            if(self?.mode == .running) {
-                if(self?.minutesElapsed == 59) {
-                    self?.minutesElapsed = 0
-                }
-                else {
-                    self?.minutesElapsed += 1
-                }
+                self?.deciSecondsElapsed += 1
             }
         }
     }
     
     func stop() {
-        secondsTimer?.invalidate()
-        minutesTimer?.invalidate()
-        millisecondsTimer?.invalidate()
-        secondsElapsed = 0
-        minutesElapsed = 0
-        millisecondsElapsed = 0
+        decisecondsTimer?.invalidate()
+        deciSecondsElapsed = 0
         mode = .stopped
     }
     

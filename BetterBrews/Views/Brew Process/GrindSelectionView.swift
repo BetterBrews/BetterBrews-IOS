@@ -21,13 +21,11 @@ struct GrindSelectionView: View {
         
         return
             Form {
-                fillRecommendedButton
+                //fillRecommendedButton
                 grindSizePicker
                 coffeeAmountSection
                 nextButton
             }
-            .listRowBackground(Color("lightTan"))
-            .foregroundColor(Color("black"))
             .navigationTitle("Start Grinding")
             .navigationBarTitleDisplayMode(.inline)
             .background(Color("lightTan").ignoresSafeArea())
@@ -109,7 +107,7 @@ enum GrindSize: String {
 struct GrindSelectionView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            GrindSelectionView(showSelf: .constant(true), newBrew: NewBrew(BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", estTime: 6)))
+            GrindSelectionView(showSelf: .constant(true), newBrew: NewBrew(BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", estTime: 6, filters: ["Immersion"])))
         }
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddBrewView: View {
     @Environment(\.presentationMode) var presentation
-    @EnvironmentObject var brews: EquipmentList
+    @EnvironmentObject var brews: BrewEquipmentList
     
     @State private var newBrewName: String = ""
     @State private var newBrewType: String = ""
@@ -23,19 +23,20 @@ struct AddBrewView: View {
     var body: some View {
         Form {
             Section {
-                TextField("name", text: $newBrewName)
-                TextField("type", text: $newBrewType)
-                TextField("time", text: $newBrewTime)
-                
+                TextField("Brewer Name", text: $newBrewName)
+                TextField("Type", text: $newBrewType)
+                TextField("Time in Minutes", text: $newBrewTime)
             }
             Section {
-                TextEditor(text: $newBrewNotes)
+                TextField("Notes", text: $newBrewNotes)
             }
             Button(action: finish) {
                 Text("Add New Brew")
             }
             .disabled(Int(newBrewTime) == nil)
+            .accentColor(AppStyle.accentColor)
         }
+        .colorScheme(.dark)
     }
     
     func finish() {

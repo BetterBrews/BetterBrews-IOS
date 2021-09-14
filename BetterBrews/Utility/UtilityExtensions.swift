@@ -25,3 +25,10 @@ extension Date {
         return dateFormatterPrint.string(from: self)
     }
 }
+
+extension Double {
+    func secondsFromDecimal() -> Int {
+        let percentMinute: Double = Double(Int(self*100)%100)/100
+        return Int(percentMinute * 60)
+    }
+}

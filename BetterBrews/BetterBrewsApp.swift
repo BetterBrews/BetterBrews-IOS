@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct BetterBrewsApp: App {
     let persistenceController = PersistenceController.shared
-    let brewList = EquipmentList()
+    let brewList = BrewEquipmentList()
     let globalSettings = GlobalSettings()
     
     var body: some Scene {
@@ -38,5 +38,8 @@ struct BetterBrewsApp: App {
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(named: "black")!]
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(named: "black")!]
         UINavigationBar.appearance().tintColor = AppStyle.UIBodyTextColor
+        
+        UITableView.appearance().backgroundColor = UIColor(named: "tan")
+        UITextView.appearance().backgroundColor = .clear
     }
 }

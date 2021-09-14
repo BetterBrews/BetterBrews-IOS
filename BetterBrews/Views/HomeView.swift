@@ -10,7 +10,8 @@ import CoreData
 
 struct HomeView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass
-    @EnvironmentObject var brewEquipment: EquipmentList
+    @EnvironmentObject var globalSettings: GlobalSettings
+    @EnvironmentObject var brewEquipment: BrewEquipmentList
     
     @FetchRequest private var pastBrews: FetchedResults<PastBrew>
     
@@ -30,23 +31,29 @@ struct HomeView: View {
     @State private var menuExpanded = false
     @State private var showAddBrewView = false
     @State private var showBrewProcess = false
-    @State private var chosenBrew: BrewEquipment = BrewEquipment(id: 0, name: "Brew", type: "Immersion", notes: "Good", estTime: 6)
+    @State private var chosenBrew: BrewEquipment = BrewEquipment(id: 0, name: "Brew", type: "Immersion", notes: "Good", estTime: 6, filters: ["Immersion"])
     
     let cardWidth: CGFloat = UIScreen.main.bounds.width - (viewConstants.hiddenCardWidth*2) - (viewConstants.cardSpacing*2)
     
     private var brewsToShow: [BrewEquipment] {
         switch(menuFilter) {
-        case .favorites:
+        case .Favorites:
             return brewEquipment.favorites
-        default:
+        case .showAll:
             return brewEquipment.brewEquipment
+        default:
+            return brewEquipment.brewEquipment.filter({ $0.filters.contains(menuFilter.rawValue)})
         }
     }
     
-    enum MenuFilter {
+    enum MenuFilter: String, CaseIterable {
         case showAll
-        case favorites
-        case espresso
+        case Favorites
+        case Espresso
+        case Immersion
+        case Pourover
+        case Drip
+        case Custom
     }
 
     var body: some View {
@@ -55,16 +62,13 @@ struct HomeView: View {
                 Color("lightTan")
                     .ignoresSafeArea()
                 Color("tan")
-                VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .leading, spacing: viewConstants.primarySpacing) {
                     Spacer()
                     menuBar
-                        .border(Color.blue)
                     Spacer()
                     brewCardCarousel
-                    .border(Color.red)
                     Spacer()
                     recentlyUsed
-                        .border(Color.green)
                 }
             }
             .toolbar { ToolbarItem(placement: .principal) { toolbarTitle } }
@@ -108,9 +112,9 @@ struct HomeView: View {
     var menuBar: some View {
         HStack {
             Menu(content: {
-                menuButton(text: "Show All", filter: MenuFilter.showAll)
-                menuButton(text: "Favorites", filter: MenuFilter.favorites)
-                menuButton(text: "Espresso", filter: MenuFilter.espresso)
+                ForEach(MenuFilter.allCases, id: \.self) { menuCase in
+                        menuButton(text: menuCase == MenuFilter.showAll ? "Show All" : menuCase.rawValue, filter: menuCase)
+                }
             }, label: {
                 RoundedButton(buttonText: "Filter", buttonImage: "line.horizontal.3.circle", isSelected: true, action: {})
             })
@@ -150,19 +154,25 @@ var brewCardCarousel: some View {
         let nextOffset: CGFloat = xOffset - (totalMovement * CGFloat(displayedIndex) + 1)
         
         var carousel: some View {
-            ScrollView(.horizontal) {
+            GeometryReader { geo in
                 HStack {
-                    NavigationLink(destination: BeanSelectionView(showSelf: $showBrewProcess, newBrew: NewBrew(chosenBrew)), isActive: $showBrewProcess) {
+                    NavigationLink(destination: BeanSelectionView(showSelf: $showBrewProcess, newBrew: NewBrew(chosenBrew)).environmentObject(globalSettings), isActive: $showBrewProcess) {
                             EmptyView()
                     }
                     .isDetailLink(false)
+                }
+                HStack(spacing: viewConstants.cardSpacing) {
                     ForEach(brewsToShow) { brew in
-                        testCard(brew)
+                        brewDisplayCard(brew)
                             .frame(width: viewConstants.cardWidth)
                             .buttonStyle(FlatLinkStyle())
                             .gesture(listSwipe)
                             .transition(.slide)
                             .animation(.spring(), value: displayedIndex)
+                            .onTapGesture {
+                                chosenBrew = brew
+                                showBrewProcess.toggle()
+                            }
                     }
                     .offset(x: calcOffset)
                 }
@@ -184,7 +194,7 @@ var brewCardCarousel: some View {
         return carousel
     }
     
-    func testCard(_ brew: BrewEquipment) -> some View {
+    func brewDisplayCard(_ brew: BrewEquipment) -> some View {
         VStack {
             GeometryReader { cardGeo in
                 VStack(alignment: .leading, spacing: 0) {
@@ -216,7 +226,7 @@ var brewCardCarousel: some View {
                             Text("Notes:")
                                 .font(.headline)
                                 .foregroundColor(Color("lightTan"))
-                            Text("Good \nGood \nGood")
+                            Text(brew.notes)
                                 .lineLimit(3)
                                 .multilineTextAlignment(.leading)
                                 .fixedSize(horizontal: false, vertical: true)
@@ -243,17 +253,18 @@ var brewCardCarousel: some View {
                             addFavorite(brew)
                         }
                 }
+                .padding(viewConstants.cardPadding)
+                .background(RoundedRectangle(cornerRadius: viewConstants.methodCardCornerRadius)
+                                .foregroundColor(AppStyle.titleColor))
                 .rotation3DEffect(rotationAngle(cardGeo), axis: (x:0, y: 10.0, z: 0))
-                .border(Color.white)
             }
             
+            
         }
-        .padding(viewConstants.cardPadding)
-        .background(RoundedRectangle(cornerRadius: viewConstants.methodCardCornerRadius)
-                        .foregroundColor(AppStyle.titleColor))
     }
     
     private func cardAverageRatingString(_ brewName: String) -> String {
+        //let brews = pastBrews.all
         let date = dateLastUsed(brewName)
         if(date == Date(timeIntervalSince1970: 0)) {
             return "N/A"
@@ -268,7 +279,7 @@ var brewCardCarousel: some View {
             $0.equipment == brewName
         })
         if(pastbrew != nil) {
-            return (pastbrew?.date)!
+            return Date(timeIntervalSince1970: 0)
         }
         else {
             return Date(timeIntervalSince1970: 0)
@@ -331,10 +342,18 @@ var brewCardCarousel: some View {
                 .padding(.bottom)
             if(pastBrews.isEmpty) {
                 Spacer()
+                HStack {
+                    Spacer()
+                    Text("No Brews Yet...")
+                        .font(.headline)
+                        .bold()
+                    Spacer()
+                }
+                Spacer()
             }
             else {
                 VStack() {
-                    ScrollView {
+                    ScrollView(.vertical) {
                         VStack(spacing: viewConstants.recentlyUsedSpacing) {
                             ForEach(pastBrews) { brew in
                                 recentCard(brew)
@@ -379,6 +398,7 @@ var brewCardCarousel: some View {
     
     //MARK: - Constants, Colors
     private struct viewConstants {
+        static let primarySpacing: CGFloat = 5
         /* Toolbar */
         static let logIconName = "chart.bar.doc.horizontal.fill"
         static let settingsIconName = "gear"
@@ -388,9 +408,9 @@ var brewCardCarousel: some View {
         static let cardWidthScale: CGFloat = 1/2.5
         static let cardHeightScale: CGFloat = 1/2.7
         static let minDrag: CGFloat = 15
-        static let cardSpacing: CGFloat = 2
+        static let cardSpacing: CGFloat = 0
         static let cardMinSwipe: CGFloat = 60
-        static let hiddenCardWidth: CGFloat = 50
+        static let hiddenCardWidth: CGFloat = 65
         static let methodCardCornerRadius: CGFloat  = 40
         static let cardWidth: CGFloat = UIScreen.main.bounds.width - (viewConstants.hiddenCardWidth*2) - (viewConstants.cardSpacing*2)
         static let spacingHeightFactor: CGFloat = 45
@@ -408,7 +428,7 @@ var brewCardCarousel: some View {
 
 struct ContentView_Previews: PreviewProvider {
     
-    static let equipment = EquipmentList([BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", estTime: 5, isFavorite: true), BrewEquipment(id: 1, name: "French Press", type: "Immersion", notes: "good", estTime: 5, isFavorite: true), BrewEquipment(id: 2, name: "Moka Pot", type: "Immersion", notes: "good", estTime: 5, isFavorite: true)])
+    static let equipment = BrewEquipmentList([BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", estTime: 5, filters: ["Immersion"], isFavorite: true), BrewEquipment(id: 1, name: "French Press", type: "Immersion", notes: "good", estTime: 5, filters: ["Immersion"], isFavorite: true), BrewEquipment(id: 2, name: "Moka Pot", type: "Immersion", notes: "good", estTime: 5, filters: ["Espresso"], isFavorite: true)])
 
     static var previews: some View {
         HomeView()
@@ -416,5 +436,6 @@ struct ContentView_Previews: PreviewProvider {
             .preferredColorScheme(.light)
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
             .environmentObject(equipment)
+            .environmentObject(GlobalSettings())
     }
 }

@@ -1,0 +1,68 @@
+[
+  {
+    "id": 0,
+    "name": "Hario V60",
+    "type": "Pourover",
+    "notes": "The V60 is an elegant brewer perfect for 1-3cups. Brews a smooth, flavorful cup.",
+    "estTime": 4,
+    "filters": [
+      "Pourover"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": 1,
+    "name": "French Press",
+    "type": "Immersion",
+    "notes": "French Presses come in a range of sizes making it ideal for sharing. Brews a heavy bodied cup with robust flavor.",
+    "estTime": 5,
+    "filters": [
+      "Immersion"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": 2,
+    "name": "Chemex",
+    "type": "Pourover",
+    "notes": "The Chemex is a signature pourover brewer. Available in a range of sizes, it brews multiple flavorful yet smooth cups.",
+    "estTime": 5,
+    "filters": [
+      "Pourover"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": 3,
+    "name": "Aeropress",
+    "type": "Immersion",
+    "notes": "Great for travel, the Aeropress brews strong single serving cups that is lighter than most immersion brewers.",
+    "estTime": 3,
+    "filters": [
+      "Immersion"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": 4,
+    "name": "Moka Pot",
+    "type": "Espresso",
+    "notes": "Stovetop brewer that comes close to the strength of true espresso.",
+    "estTime": 3,
+    "filters": [
+      "Espresso"
+    ],
+    "isFavorite": false
+  },
+  {
+    "id": 5,
+    "name": "Drip Machine",
+    "type": "Drip",
+    "notes": "The default brewer in every American home. A drip machine is simple to use and requires little supervision",
+    "estTime": 5,
+    "filters": [
+      "Drip"
+    ],
+    "isFavorite": false
+  }
+]

@@ -24,7 +24,7 @@ struct RoundedButton: View {
                 Text(buttonText)
                     .foregroundColor(isSelected ? Color(.white) : Color(.white))
             }
-            .disabled(isSelected ?? false)
+            .disabled(isSelected)
         }
         .font(.subheadline)
         .foregroundColor(isSelected ? Color(.white) : Color("black"))

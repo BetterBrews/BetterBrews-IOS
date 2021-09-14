@@ -23,13 +23,13 @@ struct WaterTempView: View {
     
     var waterTempForm: some View {
         Form {
-            Section(header: Text("Use Recommended").foregroundColor(Color("black"))) {
+            /*Section(header: Text("Use Recommended").foregroundColor(Color("black"))) {
                 Button(action: { fillRecommended() }) {
                     Text("Use Recommended")
                         .foregroundColor(viewConstants.linkColor)
                 }
             }
-            .listRowBackground(viewConstants.listRowBackground)
+            .listRowBackground(viewConstants.listRowBackground)*/
             Section(header: Text("Water Temperature").foregroundColor(Color("black"))) {
                 TextField("Temperature", text: $newBrew.brew.temperatureString)
                     .keyboardType(.decimalPad)
@@ -83,7 +83,7 @@ struct WaterTempView: View {
 struct WaterTempView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            WaterTempView(showSelf: .constant(true), newBrew: NewBrew(BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", estTime: 6)))
+            WaterTempView(showSelf: .constant(true), newBrew: NewBrew(BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", estTime: 6, filters: ["Immersion"])))
         }
     }
 }

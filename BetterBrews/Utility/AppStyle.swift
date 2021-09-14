@@ -14,6 +14,8 @@ struct AppStyle {
     static let bodyTextColor = Color(UIBodyTextColor)
     static let titleColor = Color(UITitleColor)
     static let groupedBackgroundColor = Color(UIGroupedBackgroundColor)
+    static let listRowBackgroundColor = Color(UIListRowBackgroundColor)
+    
     
     //UIKit
     static let UIBackgroundColor = UIColor(named: "lightTan")!
@@ -21,6 +23,7 @@ struct AppStyle {
     static let UITitleColor = UIColor(named: "black")!
     static let UIGroupedBackgroundColor = UIColor(named: "tan")!
     static let UIBodyTextColor = UIColor(named: "lightBrown")!
+    static let UIListRowBackgroundColor = UIColor(named: "brown")!
 }
 
 

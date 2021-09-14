@@ -18,5 +18,6 @@ struct BrewEquipment: Identifiable, Codable {
     let type: String
     let notes: String
     let estTime: Int //Time in minutes for typical brew
+    let filters: [String]
     var isFavorite: Bool = false
 }

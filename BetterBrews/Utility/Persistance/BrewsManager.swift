@@ -23,17 +23,19 @@ struct BrewsManager {
         //Water
         newBrew.waterTemp = brew.waterTemp!
         newBrew.waterAmount = brew.waterAmount!
-        
+        //Brew Time
         newBrew.brewTime = Double(brew.brewTime!)
-        
         //Units
         newBrew.coffeeUnit = brew.coffeeUnit
         newBrew.waterVolumeUnit = brew.waterVolumeUnit
-        print(brew.coffeeUnit.rawValue)
         newBrew.temperatureUnit = brew.temperatureUnit
+        //Rating
+        newBrew.rating = Int64(brew.rating)
+        
         PersistenceController.saveContext()
         print("Brew Created and Saved")
     }
+    
     
     //Delete specified past brew
     static func deleteBrew(_ brew: PastBrew) {

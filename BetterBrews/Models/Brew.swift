@@ -2,14 +2,14 @@
 //  PastBrews.swift
 //  BetterBrews
 //
+//  Model for each brew that is being created before being stored in the log
+//
 //  Created by Colby Haskell on 8/16/21.
 //
 
 import Foundation
 
 struct Brew {
-    //TODO: add water amount, coffee amount
-    
     //Store Data for brew before creating in context
     let brewEquipment: String
     var bean: Bean?
@@ -21,6 +21,11 @@ struct Brew {
     var temperatureString: String = ""
     var coffeeAmountString: String = ""
     var waterAmountString: String = ""
+    
+    var notes: String = ""
+    
+    //Value from 1-10, default is 0
+    var rating: Int = 0
     
     var grindSize: GrindSize = GrindSize.medium
     

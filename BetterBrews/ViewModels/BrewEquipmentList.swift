@@ -1,13 +1,16 @@
 //
-//  BrewMethodList.swift
+//  BrewEquipmentList.swift
 //  BetterBrews
+//
+//  Manages storage of brew equipment list
+//  Data persists through stored JSON files, using the default
 //
 //  Created by Colby Haskell on 8/12/21.
 //
 
 import Foundation
 
-class EquipmentList: ObservableObject {
+class BrewEquipmentList: ObservableObject {
     @Published var brewEquipment: [BrewEquipment] = []
     
     private static var documentsFolder: URL {
@@ -42,7 +45,7 @@ class EquipmentList: ObservableObject {
 
     //MARK: - User Intents
     func addBrew(name: String, type: String, notes: String, estTime: Int) {
-        brewEquipment.append(BrewEquipment(id: nextId, name: name, type: type, notes: notes, estTime: estTime))
+        brewEquipment.append(BrewEquipment(id: nextId, name: name, type: type, notes: notes, estTime: estTime, filters: ["Custom"]))
         saveBrews()
     }
     
@@ -51,6 +54,10 @@ class EquipmentList: ObservableObject {
             return
         }
         brewEquipment[index].isFavorite.toggle()
+        saveBrews()
+    }
+    func reset() {
+        loadDefaultBrews()
         saveBrews()
     }
     
@@ -71,8 +78,10 @@ class EquipmentList: ObservableObject {
         }
     }
     private func loadBrews() {
+        print("loading...")
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let data = try? Data(contentsOf: Self.fileURL) else {
+                print("loading default brews")
                 self?.loadDefaultBrews()
                 return
             }
