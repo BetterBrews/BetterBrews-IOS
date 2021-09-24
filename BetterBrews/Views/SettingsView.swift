@@ -81,7 +81,7 @@ struct SettingsView: View {
                     Text("Abbie Tyler")
                 }
             }
-            .foregroundColor(Color(UIColor.lightGray))
+            .foregroundColor(.white)
             .listRowBackground(viewConstants.listRowBackground)
         }
         .listStyle(GroupedListStyle())

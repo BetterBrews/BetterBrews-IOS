@@ -10,6 +10,7 @@ import SwiftUI
 struct WaterTempView: View {
     @Binding var showSelf: Bool
     @ObservedObject var newBrew: NewBrew
+    @State var nextPressed = false
     
     var body: some View {
         UITableView.appearance().backgroundColor = UIColor(named: "tan")
@@ -53,15 +54,28 @@ struct WaterTempView: View {
                     }
                     .listRowBackground(viewConstants.listRowBackground)
                     Section(header: Text("Timer").foregroundColor(Color("black"))) {
-                        NavigationLink("Time and Rating", destination: RatingView(showSelf: $showSelf, newBrew: newBrew))
-                            .disabled(newBrew.brew.temperatureString == "" || newBrew.brew.waterAmountString == "")
-                            .foregroundColor(viewConstants.linkColor)
+                        nextButton
                     }
                     .listRowBackground(viewConstants.listRowBackground)
                 }
                 .foregroundColor(Color("black"))
-                .padding(.top)
             }
+            .padding(.top)
+        }
+    }
+    
+    var nextButton: some View {
+        ZStack {
+            NavigationLink("Time and Rating Selection", destination: RatingView(showSelf: $showSelf, newBrew: newBrew), isActive: $nextPressed)
+            Button(action: {}) {
+                HStack {
+                    Text("Time and Rating Selection")
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                }
+            }
+            .foregroundColor(viewConstants.linkColor)
+            .opacity((newBrew.brew.temperatureString == "" || newBrew.brew.waterAmountString == "") ? 0.7 : 1)
         }
     }
     

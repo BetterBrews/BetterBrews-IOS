@@ -151,7 +151,7 @@ struct LogView: View {
                 logCardRow("Grind Size:", brew.grind?.capitalizingFirstLetter() ?? "Grind", showDivider: true)
                 logCardRow("Coffee Amount:", (String(brew.coffeeAmount) + brew.coffeeUnitString!), showDivider: true)
                 logCardRow("Water Amount:", (String(brew.waterAmount) + brew.waterVolumeUnitString!), showDivider: true)
-                logCardRow("Water Temperature:", (String(brew.waterTemp) + (brew.temperatureUnitString ?? String(format:"%@C", "\u{00B0}"))), showDivider: true)
+                logCardRow("Water Temperature:", (String(brew.waterTemp) + (brew.formattedTemperatureUnitString ?? String(format:"%@C", "\u{00B0}"))), showDivider: true)
                 logCardRow("Brew Time:", String(format: "%2d:%02d", brew.timeMinutes(), brew.timeSeconds()), showDivider: true)
                 logCardRow("Rating:", String(brew.rating), showDivider: false)
             }

@@ -10,6 +10,7 @@ import SwiftUI
 struct GrindSelectionView: View {
     @Binding var showSelf: Bool
     @ObservedObject var newBrew: NewBrew
+    @State var nextPressed = false
     
     var body: some View {
         
@@ -18,34 +19,27 @@ struct GrindSelectionView: View {
     
 //MARK: - Form
     var grindInfoForm: some View {
-        //UITableView.appearance().backgroundColor = UIColor(named: "tan")
         ZStack {
             Color("lightTan")
                 .ignoresSafeArea()
             VStack {
-                Spacer()
+                NavigationLink(destination: WaterTempView(showSelf: $showSelf, newBrew: newBrew),isActive: $nextPressed) {}
+                    .opacity(0)
+                    .background(Color("lightTan"))
                 Form {
                     grindSizePicker
                     coffeeAmountSection
-                    nextButton
+                    Section(header: Text("Next").foregroundColor(.black)) {
+                        nextButton
+                    }
                 }
-                .navigationTitle("Start Grinding")
+                .padding(.top)
                 .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("Prepare Beans")
                 Spacer()
             }
             .edgesIgnoringSafeArea(.bottom)
         }
-            //.colorScheme(.dark)
-    }
-    
-    var fillRecommendedButton: some View {
-        Section(header: Text("Use Recommended").padding(.top).foregroundColor(Color("black"))) {
-            Button(action: { newBrew.brew.coffeeAmountString = "30.0"}) {
-                Text("Use Recommended")
-                    .foregroundColor(Color("gold"))
-            }
-        }
-        .listRowBackground(viewConstants.listRowBackground)
     }
     
     var grindSizePicker: some View {
@@ -59,8 +53,9 @@ struct GrindSelectionView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .foregroundColor(Color("gold"))
-                Image(systemName: "info.circle")
+                /*Image(systemName: "info.circle")
                     .foregroundColor(viewConstants.linkColor)
+                 */
             }
             .foregroundColor(.white)
         }
@@ -75,11 +70,10 @@ struct GrindSelectionView: View {
                     .accentColor(.white)
                     .foregroundColor(.white)
                     .keyboardType(.decimalPad)
-                    //.preferredColorScheme()
-                Button(action: { }) {
+                /*Button(action: { }) {
                     Image(systemName: "info.circle")
                         .foregroundColor(viewConstants.linkColor)
-                }
+                }*/
             }
             Picker("Measurement", selection: $newBrew.brew.coffeeUnit) {
                 Text("Grams").tag(CoffeeUnit.g)
@@ -91,12 +85,16 @@ struct GrindSelectionView: View {
     }
     
     var nextButton: some View {
-        Section {
-            NavigationLink("Water Info", destination: WaterTempView(showSelf: $showSelf, newBrew: newBrew))
-            .foregroundColor(Color("gold"))
-                .disabled(newBrew.brew.coffeeAmount == nil)
+        Button(action: { nextPressed.toggle() }) {
+            HStack {
+                Text("Enter Water Info")
+                Spacer()
+                Image(systemName: "chevron.right")
+            }
         }
-        .listRowBackground(viewConstants.listRowBackground)
+        .opacity(newBrew.brew.coffeeAmountString == "" ? 0.7 : 1)
+        .foregroundColor(Color("gold"))
+        .listRowBackground(Color("brown"))
     }
     
     struct viewConstants {
