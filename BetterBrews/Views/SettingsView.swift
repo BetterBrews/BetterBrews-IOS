@@ -46,16 +46,6 @@ struct SettingsView: View {
             }
             .pickerStyle(SegmentedPickerStyle())
             .listRowBackground(viewConstants.listRowBackground)
-            Section(header: Text("About").foregroundColor(viewConstants.headerColor)) {
-                HStack {
-                    Text("Version")
-                    Spacer()
-                    Text("1.0.1")
-                }
-                //NavigationLink("Contributions", destination: Text("Contributions"))
-            }
-            .foregroundColor(.white)
-            .listRowBackground(viewConstants.listRowBackground)
             Section(header: Text("Clear Data")) {
                 Button(action: clearLog ) {
                     Text("Clear Log")
@@ -70,11 +60,33 @@ struct SettingsView: View {
                 }
                 .foregroundColor(.red)
             }
+            Section(header: Text("About").foregroundColor(viewConstants.headerColor)) {
+                HStack {
+                    Text("Version")
+                    Spacer()
+                    Text("1.0.1")
+                }
+            }
+            .foregroundColor(.white)
+            .listRowBackground(viewConstants.listRowBackground)
+            Section(header: Text("Contributions").foregroundColor(viewConstants.headerColor)) {
+                HStack {
+                    Text("Development:")
+                    Spacer()
+                    Text("Colby Haskell")
+                }
+                HStack {
+                    Text("Icon and App Design:")
+                    Spacer()
+                    Text("Abbie Tyler")
+                }
+            }
+            .foregroundColor(Color(UIColor.lightGray))
+            .listRowBackground(viewConstants.listRowBackground)
         }
         .listStyle(GroupedListStyle())
         .padding(.top)
         .foregroundColor(AppStyle.titleColor)
-        //.colorScheme(.dark)
     }
     
     func clearLog() {
@@ -108,6 +120,7 @@ struct SettingsView_Previews: PreviewProvider {
             SettingsView()
                 .environmentObject(GlobalSettings())
         }
+        .preferredColorScheme(.dark)
         //.preferredColorScheme(.light)
     }
 }
