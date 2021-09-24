@@ -79,7 +79,7 @@ struct SettingsView: View {
         .listStyle(GroupedListStyle())
         .padding(.top)
         .foregroundColor(AppStyle.titleColor)
-        .colorScheme(.dark)
+        //.colorScheme(.dark)
     }
     
     func clearLog() {
@@ -113,6 +113,6 @@ struct SettingsView_Previews: PreviewProvider {
             SettingsView()
                 .environmentObject(GlobalSettings())
         }
-        .preferredColorScheme(.light)
+        //.preferredColorScheme(.light)
     }
 }

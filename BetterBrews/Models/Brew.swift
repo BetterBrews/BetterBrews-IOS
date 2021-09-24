@@ -59,6 +59,15 @@ struct Brew {
         return TemperatureUnit(rawValue: UserDefaults.standard.string(forKey: defaultsKeys.temperatureUnit) ?? TemperatureUnit.celcius.rawValue)!
     }
     
+    var temperatureUnitString: String {
+        switch(self.temperatureUnit) {
+        case .celcius:
+            return String(format:"%@C", "\u{00B0}")
+        case .farenheit:
+            return String(format:"%@F", "\u{00B0}")
+        }
+    }
+    
     
 }
 

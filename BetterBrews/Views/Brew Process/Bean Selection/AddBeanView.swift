@@ -23,10 +23,9 @@ struct AddBeanView: View {
         
         return
             Form {
-                Section(header: Text("Name").foregroundColor(viewConstants.headerColor)) {
+                Section(header: nameSectionTitle) {
                     TextField("Roaster", text: $roasterName)
                     TextField("Bean Name", text: $beanName)
-
                 }
                 
                 Section(header: Text("Roast Type").foregroundColor(viewConstants.headerColor)) {
@@ -65,7 +64,11 @@ struct AddBeanView: View {
             }
             .padding(.top)
             .background(Color("lightTan"))
-            .colorScheme(.dark)
+    }
+    
+    var nameSectionTitle: some View {
+        Text("Name")
+            .foregroundColor(viewConstants.headerColor)
     }
     
     struct viewConstants {

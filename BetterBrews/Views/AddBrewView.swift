@@ -36,11 +36,11 @@ struct AddBrewView: View {
             .disabled(Int(newBrewTime) == nil)
             .accentColor(AppStyle.accentColor)
         }
-        .colorScheme(.dark)
+        //.colorScheme(.dark)
     }
     
     func finish() {
-        brews.addBrew(name: newBrewName, type: newBrewType, notes: newBrewNotes, estTime: estBrewTime)
+        brews.addEquipment(name: newBrewName, type: newBrewType, notes: newBrewNotes, estTime: estBrewTime)
         self.presentation.wrappedValue.dismiss()
     }
 }

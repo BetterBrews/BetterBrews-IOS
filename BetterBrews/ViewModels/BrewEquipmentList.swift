@@ -23,6 +23,7 @@ class BrewEquipmentList: ObservableObject {
             fatalError("Can't find documents directory.")
         }
     }
+    //URL of saved user brew equipment list
     private static var fileURL: URL {
         return documentsFolder.appendingPathComponent("brews.data")
     }
@@ -44,7 +45,7 @@ class BrewEquipmentList: ObservableObject {
     }
 
     //MARK: - User Intents
-    func addBrew(name: String, type: String, notes: String, estTime: Int) {
+    func addEquipment(name: String, type: String, notes: String, estTime: Int) {
         brewEquipment.append(BrewEquipment(id: nextId, name: name, type: type, notes: notes, estTime: estTime, filters: ["Custom"]))
         saveBrews()
     }
@@ -64,49 +65,45 @@ class BrewEquipmentList: ObservableObject {
     //MARK: - JSON Functions
     private func loadDefaultBrews() {
         DispatchQueue.global(qos: .background).async { [weak self] in
-            let decoder = JSONDecoder()
             if let path = Bundle.main.path(forResource: "brews", ofType: "data") {
                 do {
                     let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                    let brewEquipment = try JSONDecoder().decode([BrewEquipment].self, from: data)
                     DispatchQueue.main.async {
-                        self?.brewEquipment = try! decoder.decode([BrewEquipment].self, from: data)
+                        self?.brewEquipment = brewEquipment
                     }
                 } catch {
-                    print(error)
+                    //Fatal error if Default data either does not exist or is invalid format
+                    fatalError(error.localizedDescription)
                 }
             }
         }
     }
     private func loadBrews() {
-        print("loading...")
         DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let data = try? Data(contentsOf: Self.fileURL) else {
-                print("loading default brews")
-                self?.loadDefaultBrews()
-                return
-            }
-            var brews = [BrewEquipment]()
             do {
-                brews = try JSONDecoder().decode([BrewEquipment].self, from: data)
+                //Take data from saved user file if it exists
+                let data = try Data(contentsOf: Self.fileURL)
+                //Attempt to Decode Brew Info from JSON data
+                let brews = try JSONDecoder().decode([BrewEquipment].self, from: data)
+                DispatchQueue.main.async {
+                    self?.brewEquipment = brews
+                }
             } catch {
-                print(error)
-            }
-            print(brews.count)
-            DispatchQueue.main.async {
-                self?.brewEquipment = brews
+                //Load default brews if saved data doesnt exist or is an invalid format
+                self?.loadDefaultBrews()
             }
         }
     }
     private func saveBrews() {
         DispatchQueue.global(qos: .background).async {
             let encoder = JSONEncoder()
-            guard let data = try? encoder.encode(self.brewEquipment) else {
-                fatalError("Error encoding brew list")
-            }
             do {
+                let data = try encoder.encode(self.brewEquipment)
                 try data.write(to: Self.fileURL)
+                
             } catch {
-                fatalError("Cant save to JSON file")
+                print("Unable to save custom brew equipment list")
             }
         }
     }

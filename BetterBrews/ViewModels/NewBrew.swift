@@ -11,7 +11,10 @@ class NewBrew: ObservableObject {
     @Published var brew: Brew
     var brewMinutes: Int {
         get {
-            return (brew.brewTime != nil) ? Int(brew.brewTime!) : 0
+            if(brew.brewTime == nil) {
+                brew.brewTime = 0
+            }
+            return Int(brew.brewTime!)
         }
         set {
             if(brew.brewTime != nil) {
@@ -25,7 +28,10 @@ class NewBrew: ObservableObject {
     
     var brewSeconds: Int {
         get {
-            return brew.brewTime != nil ? Int(brew.brewTime!*100)%100 : 0
+            if(brew.brewTime == nil) {
+                brew.brewTime = 0
+            }
+            return Int(brew.brewTime!*100)%100
         }
         set {
             if(brew.brewTime != nil) {

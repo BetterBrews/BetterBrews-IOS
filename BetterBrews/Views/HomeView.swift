@@ -9,22 +9,9 @@ import SwiftUI
 import CoreData
 
 struct HomeView: View {
-    @Environment(\.verticalSizeClass) var verticalSizeClass
+    //MARK: - State
     @EnvironmentObject var globalSettings: GlobalSettings
     @EnvironmentObject var brewEquipment: BrewEquipmentList
-    
-    @FetchRequest private var pastBrews: FetchedResults<PastBrew>
-    
-    init() {
-        let request: NSFetchRequest<PastBrew> = PastBrew.fetchRequest()
-        request.fetchLimit = 5
-        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-
-        _pastBrews = FetchRequest(fetchRequest: request)
-    }
-    
-    
-    //MARK: State
     @GestureState private var dragAmount = CGFloat.zero
     @State private var displayedIndex = 0
     @State private var menuFilter = MenuFilter.showAll
@@ -32,6 +19,8 @@ struct HomeView: View {
     @State private var showAddBrewView = false
     @State private var showBrewProcess = false
     @State private var chosenBrew: BrewEquipment = BrewEquipment(id: 0, name: "Brew", type: "Immersion", notes: "Good", estTime: 6, filters: ["Immersion"])
+    
+    @FetchRequest private var pastBrews: FetchedResults<PastBrew>
     
     let cardWidth: CGFloat = UIScreen.main.bounds.width - (viewConstants.hiddenCardWidth*2) - (viewConstants.cardSpacing*2)
     
@@ -55,7 +44,16 @@ struct HomeView: View {
         case Drip
         case Custom
     }
+    //MARK: - Init
+    init() {
+        let request: NSFetchRequest<PastBrew> = PastBrew.fetchRequest()
+        request.fetchLimit = 5
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
 
+        _pastBrews = FetchRequest(fetchRequest: request)
+    }
+    
+    //MARK: - Body
     var body: some View {
         NavigationView {
             ZStack {
@@ -74,8 +72,6 @@ struct HomeView: View {
             .toolbar { ToolbarItem(placement: .principal) { toolbarTitle } }
             .navigationBarItems(leading: logIcon, trailing: settingsIcon)
         }
-        .preferredColorScheme(.light)
-        
     }
     
     //MARK: - Toolbar
@@ -338,6 +334,7 @@ var brewCardCarousel: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("Recently Used:")
                 .font(.title2)
+                .foregroundColor(.black)
                 .bold()
                 .padding(.bottom)
             if(pastBrews.isEmpty) {
@@ -433,7 +430,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
             .previewDevice("iPhone 12 Pro Max")
-            .preferredColorScheme(.light)
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
             .environmentObject(equipment)
             .environmentObject(GlobalSettings())

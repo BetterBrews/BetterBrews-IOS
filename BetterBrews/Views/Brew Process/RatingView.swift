@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct RatingView: View {
-    
+    //MARK: - State
     @Binding var showSelf: Bool
     @ObservedObject var newBrew: NewBrew
-    //@State private var rating: Int = 1
     @State private var editingTime: Bool = true
     //@State private var tasteNotesString: String = ""
     
+    //MARK: - Body
     var body: some View {
         ZStack {
             Color("lightTan")
@@ -100,7 +100,6 @@ struct RatingView: View {
             }
             .transition(.slide)
         }
-        .colorScheme(.dark)
         .background(Color("brown"))
     }
     
@@ -108,9 +107,56 @@ struct RatingView: View {
     var inputForm: some View {
         VStack {
             ratingPicker
-            tasteNotesField
+            logEntrySection
         }
         .background(AppStyle.backgroundColor)
+    }
+    
+    //MARK: - Log Entry Section
+    var logEntrySection: some View {
+        VStack(alignment: .leading) {
+            logEntrySectionHeader
+            Divider()
+                .background(Color(.black))
+            Spacer()
+            logEntryRow(label: "Brewed with", value: newBrew.brew.brewEquipment)
+            logEntryRow(label: "Beans Used", value: newBrew.brew.bean!.name!)
+            logEntryRow(label: "Grind Size", value: newBrew.brew.grindSizeString!)
+            logEntryRow(label: "Coffee Amount", value: (newBrew.brew.coffeeAmountString + newBrew.brew.coffeeUnit.rawValue))
+            logEntryRow(label: "Water Amount", value: String(newBrew.brew.waterAmount!))
+            logEntryRow(label: "Water Temperature", value:
+                            newBrew.brew.temperatureString + newBrew.brew.temperatureUnitString)
+            Spacer()
+        }
+        .foregroundColor(Color("black"))
+        .padding([.top, .horizontal])
+        .background(Color("lightTan"))
+    }
+    
+    var logEntrySectionHeader: some View {
+        HStack {
+            Text("Log Entry:")
+                .bold()
+                .font(.title)
+            Spacer()
+        }
+    }
+    
+    func logEntryRow(label: String, value: String) -> some View {
+        VStack {
+            Spacer(minLength: 0)
+            HStack {
+                Text(label + ":")
+                Spacer()
+                Button(action: { }) {
+                    Text(value)
+                    Image(systemName: "chevron.right")
+                }
+                .foregroundColor(Color("lightBrown"))
+            }
+            .font(.headline)
+            Spacer(minLength: 0)
+        }
     }
     var ratingPicker: some View {
         VStack {
@@ -149,7 +195,7 @@ struct RatingView: View {
     var expandingTextField: some View {
         VStack {
             TextEditor(text: $newBrew.brew.notes)
-                .colorScheme(.dark)
+                //.colorScheme(.dark)
                 .foregroundColor(Color("gold"))
             Spacer()
         }

@@ -28,6 +28,7 @@ struct BeanSelectionView: View {
             VStack(spacing: 0) {
                 SearchBar(text: $searchText, isEditing: $searching, placeholder: "Search")
                     .transition(.slide)
+                    .colorScheme(.light)
                 editBar
                 ZStack {
                     Color("tan")

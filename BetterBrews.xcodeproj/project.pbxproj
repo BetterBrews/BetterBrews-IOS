@@ -38,7 +38,6 @@
 		53DF66D426C4BBA2001EF4EC /* BeanSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DF66D326C4BBA2001EF4EC /* BeanSelectionView.swift */; };
 		53DF66D626C4BBB4001EF4EC /* GrindSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DF66D526C4BBB4001EF4EC /* GrindSelectionView.swift */; };
 		53DF66D826C4BBC3001EF4EC /* WaterTempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DF66D726C4BBC3001EF4EC /* WaterTempView.swift */; };
-		53DF66DA26C4BBD0001EF4EC /* BrewTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DF66D926C4BBD0001EF4EC /* BrewTimerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,7 +74,6 @@
 		53DF66D326C4BBA2001EF4EC /* BeanSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeanSelectionView.swift; sourceTree = "<group>"; };
 		53DF66D526C4BBB4001EF4EC /* GrindSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrindSelectionView.swift; sourceTree = "<group>"; };
 		53DF66D726C4BBC3001EF4EC /* WaterTempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterTempView.swift; sourceTree = "<group>"; };
-		53DF66D926C4BBD0001EF4EC /* BrewTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewTimerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,7 +225,6 @@
 				531FC9EE26CC172200386EA7 /* Bean Selection */,
 				53DF66D526C4BBB4001EF4EC /* GrindSelectionView.swift */,
 				53DF66D726C4BBC3001EF4EC /* WaterTempView.swift */,
-				53DF66D926C4BBD0001EF4EC /* BrewTimerView.swift */,
 				530A7D5026E2E6910010CA09 /* RatingView.swift */,
 			);
 			path = "Brew Process";
@@ -325,7 +322,6 @@
 				531FC9F626D085CA00386EA7 /* PastBrew.swift in Sources */,
 				53574BDD26C43C7700F0A1A7 /* HomeView.swift in Sources */,
 				531FC9F226D0172900386EA7 /* UtilityViews.swift in Sources */,
-				53DF66DA26C4BBD0001EF4EC /* BrewTimerView.swift in Sources */,
 				53DF66D226C45A08001EF4EC /* SettingsView.swift in Sources */,
 				53948A8726CABCF300181B7B /* Brew.swift in Sources */,
 				53DF66D026C45A02001EF4EC /* LogView.swift in Sources */,

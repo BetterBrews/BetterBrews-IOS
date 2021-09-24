@@ -17,17 +17,12 @@ struct BetterBrewsApp: App {
         WindowGroup {
             HomeView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.colorScheme, .dark)
                 .environmentObject(brewList)
                 .environmentObject(globalSettings)
         }
     }
     init() {
-        
-        #if arch(i386) || arch(x86_64)
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString
-          NSLog("Document Path: %@", documentsPath)
-        #endif
-        
         setUIAppearance()
     }
     

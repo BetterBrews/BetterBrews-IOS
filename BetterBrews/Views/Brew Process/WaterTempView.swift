@@ -23,18 +23,11 @@ struct WaterTempView: View {
     
     var waterTempForm: some View {
         Form {
-            /*Section(header: Text("Use Recommended").foregroundColor(Color("black"))) {
-                Button(action: { fillRecommended() }) {
-                    Text("Use Recommended")
-                        .foregroundColor(viewConstants.linkColor)
-                }
-            }
-            .listRowBackground(viewConstants.listRowBackground)*/
             Section(header: Text("Water Temperature").foregroundColor(Color("black"))) {
                 TextField("Temperature", text: $newBrew.brew.temperatureString)
                     .keyboardType(.decimalPad)
                     .foregroundColor(.white)
-                    .accentColor(.white)
+                    .accentColor(AppStyle.accentColor)
                 Picker("Units", selection: $newBrew.brew.temperatureUnit) {
                     Text("Celcius").tag(TemperatureUnit.celcius)
                     Text("Farenheit").tag(TemperatureUnit.farenheit)
@@ -46,7 +39,7 @@ struct WaterTempView: View {
                 TextField("Amount", text: $newBrew.brew.waterAmountString)
                     .keyboardType(.decimalPad)
                     .foregroundColor(.white)
-                    .accentColor(.white)
+                    .accentColor(AppStyle.accentColor)
                 Picker("Units", selection: $newBrew.brew.waterVolumeUnit) {
                     Text("mL").tag(WaterVolumeUnit.mL)
                     Text("Grams").tag(WaterVolumeUnit.g)
@@ -56,8 +49,8 @@ struct WaterTempView: View {
             }
             .listRowBackground(viewConstants.listRowBackground)
             Section(header: Text("Timer").foregroundColor(Color("black"))) {
-                NavigationLink("Start Timer", destination: BrewTimerView(showSelf: $showSelf, newBrew: newBrew))
-                    .disabled(newBrew.brew.waterTemp == nil || newBrew.brew.coffeeAmount == nil)
+                NavigationLink("Time and Rating", destination: RatingView(showSelf: $showSelf, newBrew: newBrew))
+                    .disabled(newBrew.brew.temperatureString == "" || newBrew.brew.waterAmountString == "")
                     .foregroundColor(viewConstants.linkColor)
             }
             .listRowBackground(viewConstants.listRowBackground)
@@ -65,7 +58,6 @@ struct WaterTempView: View {
         .foregroundColor(Color("black"))
         .padding(.top)
         .background(Color("tan"))
-        .colorScheme(.dark)
     }
     
     //MARK: - Functions
