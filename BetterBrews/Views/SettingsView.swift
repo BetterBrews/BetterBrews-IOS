@@ -19,7 +19,7 @@ struct SettingsView: View {
     
     var body: some View {
         ZStack {
-            Color("tan")
+            Color("lightTan")
                 .ignoresSafeArea()
             settingsForm
         }
@@ -29,11 +29,6 @@ struct SettingsView: View {
     
     var settingsForm: some View {
         Form {
-            Section(header: Text("Brew Timer")) {
-                Toggle("Auto Start Timer", isOn: $globalSettings.autoStartTimer)
-                    .foregroundColor(.white)
-            }
-            .listRowBackground(viewConstants.listRowBackground)
             Section(header: Text("Default Measurements")) {
                 Picker("Select Units", selection: $globalSettings.temperatureUnit) {
                     Text("Celcius").tag(TemperatureUnit.celcius)
