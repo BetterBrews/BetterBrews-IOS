@@ -12,28 +12,29 @@ struct GrindSelectionView: View {
     @ObservedObject var newBrew: NewBrew
     
     var body: some View {
-        //grindInfoForm
-        //VStack(spacing: 0) {
-            //Color("lightTan")
-               // .ignoresSafeArea()
-            grindInfoForm
-            
-        //}
+        
+        grindInfoForm
     }
     
 //MARK: - Form
     var grindInfoForm: some View {
         //UITableView.appearance().backgroundColor = UIColor(named: "tan")
-        
-        return
-            Form {
-                //fillRecommendedButton
-                grindSizePicker
-                coffeeAmountSection
-                nextButton
+        ZStack {
+            Color("lightTan")
+                .ignoresSafeArea()
+            VStack {
+                Spacer()
+                Form {
+                    grindSizePicker
+                    coffeeAmountSection
+                    nextButton
+                }
+                .navigationTitle("Start Grinding")
+                .navigationBarTitleDisplayMode(.inline)
+                Spacer()
             }
-            .navigationTitle("Start Grinding")
-            .navigationBarTitleDisplayMode(.inline)
+            .edgesIgnoringSafeArea(.bottom)
+        }
             //.colorScheme(.dark)
     }
     

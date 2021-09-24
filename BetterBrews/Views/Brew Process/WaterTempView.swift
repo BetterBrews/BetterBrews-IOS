@@ -22,42 +22,47 @@ struct WaterTempView: View {
     }
     
     var waterTempForm: some View {
-        Form {
-            Section(header: Text("Water Temperature").foregroundColor(Color("black"))) {
-                TextField("Temperature", text: $newBrew.brew.temperatureString)
-                    .keyboardType(.decimalPad)
-                    .foregroundColor(.white)
-                    .accentColor(AppStyle.accentColor)
-                Picker("Units", selection: $newBrew.brew.temperatureUnit) {
-                    Text("Celcius").tag(TemperatureUnit.celcius)
-                    Text("Farenheit").tag(TemperatureUnit.farenheit)
+        ZStack {
+            Color("lightTan")
+                .ignoresSafeArea()
+            VStack {
+                Form {
+                    Section(header: Text("Water Temperature").foregroundColor(Color("black"))) {
+                        TextField("Temperature", text: $newBrew.brew.temperatureString)
+                            .keyboardType(.decimalPad)
+                            .foregroundColor(.white)
+                            .accentColor(AppStyle.accentColor)
+                        Picker("Units", selection: $newBrew.brew.temperatureUnit) {
+                            Text("Celcius").tag(TemperatureUnit.celcius)
+                            Text("Farenheit").tag(TemperatureUnit.farenheit)
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                    }
+                    .listRowBackground(viewConstants.listRowBackground)
+                    Section(header: Text("Water Measured").foregroundColor(Color("black"))) {
+                        TextField("Amount", text: $newBrew.brew.waterAmountString)
+                            .keyboardType(.decimalPad)
+                            .foregroundColor(.white)
+                            .accentColor(AppStyle.accentColor)
+                        Picker("Units", selection: $newBrew.brew.waterVolumeUnit) {
+                            Text("mL").tag(WaterVolumeUnit.mL)
+                            Text("Grams").tag(WaterVolumeUnit.g)
+                            Text("Cups").tag(WaterVolumeUnit.cups)
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                    }
+                    .listRowBackground(viewConstants.listRowBackground)
+                    Section(header: Text("Timer").foregroundColor(Color("black"))) {
+                        NavigationLink("Time and Rating", destination: RatingView(showSelf: $showSelf, newBrew: newBrew))
+                            .disabled(newBrew.brew.temperatureString == "" || newBrew.brew.waterAmountString == "")
+                            .foregroundColor(viewConstants.linkColor)
+                    }
+                    .listRowBackground(viewConstants.listRowBackground)
                 }
-                .pickerStyle(SegmentedPickerStyle())
+                .foregroundColor(Color("black"))
+                .padding(.top)
             }
-            .listRowBackground(viewConstants.listRowBackground)
-            Section(header: Text("Water Measured").foregroundColor(Color("black"))) {
-                TextField("Amount", text: $newBrew.brew.waterAmountString)
-                    .keyboardType(.decimalPad)
-                    .foregroundColor(.white)
-                    .accentColor(AppStyle.accentColor)
-                Picker("Units", selection: $newBrew.brew.waterVolumeUnit) {
-                    Text("mL").tag(WaterVolumeUnit.mL)
-                    Text("Grams").tag(WaterVolumeUnit.g)
-                    Text("Cups").tag(WaterVolumeUnit.cups)
-                }
-                .pickerStyle(SegmentedPickerStyle())
-            }
-            .listRowBackground(viewConstants.listRowBackground)
-            Section(header: Text("Timer").foregroundColor(Color("black"))) {
-                NavigationLink("Time and Rating", destination: RatingView(showSelf: $showSelf, newBrew: newBrew))
-                    .disabled(newBrew.brew.temperatureString == "" || newBrew.brew.waterAmountString == "")
-                    .foregroundColor(viewConstants.linkColor)
-            }
-            .listRowBackground(viewConstants.listRowBackground)
         }
-        .foregroundColor(Color("black"))
-        .padding(.top)
-        .background(Color("tan"))
     }
     
     //MARK: - Functions

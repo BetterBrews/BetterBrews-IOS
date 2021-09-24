@@ -27,16 +27,19 @@ struct AddBrewView: View {
                 TextField("Type", text: $newBrewType)
                 TextField("Time in Minutes", text: $newBrewTime)
             }
+            .accentColor(AppStyle.accentColor)
+            .foregroundColor(.white)
             Section {
                 TextField("Notes", text: $newBrewNotes)
             }
             Button(action: finish) {
                 Text("Add New Brew")
+                    .foregroundColor(AppStyle.accentColor)
             }
             .disabled(Int(newBrewTime) == nil)
-            .accentColor(AppStyle.accentColor)
         }
-        //.colorScheme(.dark)
+        .accentColor(AppStyle.accentColor)
+        .foregroundColor(.white)
     }
     
     func finish() {

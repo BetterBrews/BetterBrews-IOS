@@ -105,6 +105,7 @@ struct HomeView: View {
     }
     
     //MARK: - Buttons
+    
     var menuBar: some View {
         HStack {
             Menu(content: {
@@ -112,7 +113,7 @@ struct HomeView: View {
                         menuButton(text: menuCase == MenuFilter.showAll ? "Show All" : menuCase.rawValue, filter: menuCase)
                 }
             }, label: {
-                RoundedButton(buttonText: "Filter", buttonImage: "line.horizontal.3.circle", isSelected: true, action: {})
+                RoundedButton(buttonText: menuFilter == MenuFilter.showAll ? "Show All" : menuFilter.rawValue, buttonImage: "line.horizontal.3.circle", isSelected: true, action: {})
             })
             Spacer()
             Button(action: { showAddBrewView.toggle() }) {
@@ -124,6 +125,7 @@ struct HomeView: View {
             }
             .sheet(isPresented: $showAddBrewView, content: {
                 AddBrewView()
+                    .environment(\.colorScheme, .dark)
             })
         }
         .padding(.horizontal)

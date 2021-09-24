@@ -14,27 +14,38 @@ struct LogView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "date", ascending: false)])
     private var pastBrews: FetchedResults<PastBrew>
     
-    @State private var filter = EquipmentFilter.allBrews
+    @State private var menuFilter = BrewEquipmentList.MenuFilter.showAll
     @State private var editing = false
 
     
-    private enum EquipmentFilter: String, CaseIterable {
-        case allBrews = "All Brews"
-        case aeropress = "Aeropress"
-        case espresso = "Espresso"
+    private var pastBrewsToShow: [PastBrew] {
+        switch(menuFilter) {
+        case .Favorites:
+            return pastBrews.filter() { pastBrew in
+                return brews.favorites.contains(where: { $0.name == pastBrew.equipment })
+            }
+        case .showAll:
+            return pastBrews.map( { return $0 })
+        default:
+            return pastBrews.filter({ pastBrew in
+                //
+                // Return this past brew if the selected filter is in the filters list of this given brew equipment
+                return (brews.brewEquipment.first(where: { $0.name == pastBrew.equipment })?.filters.contains(menuFilter.rawValue)) ?? false
+            })
+        }
     }
     
     var body: some View {
             VStack(spacing: 0) {
                 toolbar
-                if(pastBrews.isEmpty) {
+                if(pastBrewsToShow.isEmpty) {
                     emptyBrewList
                 }
                 else {
                     VStack {
                         ScrollView {
                             VStack(alignment: .leading, spacing: 0) {
-                                ForEach(pastBrews) { brew in
+                                ForEach(pastBrewsToShow) { brew in
                                     listDateHeader(brew.date)
                                     HStack(alignment: .center) {
                                         if(editing) {
@@ -44,7 +55,7 @@ struct LogView: View {
                                             .padding()
                                     }
                                     .transition(.slide)
-                                    if (brew != pastBrews.last) {
+                                    if (brew != pastBrewsToShow.last) {
                                         Divider()
                                             .background(Color("black"))
                                             .padding(.horizontal)
@@ -106,15 +117,15 @@ struct LogView: View {
     
     var filterMenu: some View {
         Menu(content: {
-            ForEach(EquipmentFilter.allCases, id: \.self) { filterName in
-                Button(filterName.rawValue) {
-                    filter = filterName
-                }
-                .disabled(filter == filterName)
-            }
-        } ) {
-            RoundedButton(buttonText: filter.rawValue, buttonImage: "line.horizontal.3.circle", isSelected: true, action: {})
+            ForEach(BrewEquipmentList.MenuFilter.allCases, id: \.self) { menuCase in
+                menuButton(text: menuCase == BrewEquipmentList.MenuFilter.showAll ? "Show All" : menuCase.rawValue, filter: menuCase)
+            }        } ) {
+            RoundedButton(buttonText: menuFilter == BrewEquipmentList.MenuFilter.showAll ? "Show All" : menuFilter.rawValue, buttonImage: "line.horizontal.3.circle", isSelected: true, action: {})
         }
+    }
+    
+    func menuButton(text: String, filter: BrewEquipmentList.MenuFilter) -> some View {
+        RoundedButton(buttonText: text, isSelected: (menuFilter == filter), action: { menuFilter = filter })
     }
     
     func logCard(_ brew: PastBrew) -> some View {

@@ -31,7 +31,7 @@ struct RatingView: View {
                     .navigationBarTitleDisplayMode(.inline)
                     .navigationTitle("Review")
                     .toolbar(content: {
-                        Button("Finish") { finish() }
+                        Button(action: finish) { Text("Finish").foregroundColor(AppStyle.bodyTextColor) }
                     })
             }
         }
@@ -43,6 +43,7 @@ struct RatingView: View {
                 Text("BREW TIME:")
                     .font(.caption)
                     .bold()
+                    .foregroundColor(.black)
                 Spacer()
                 if(!editingTime) {
                     Button(editingTime ? "Done" : "Edit") {
@@ -116,8 +117,6 @@ struct RatingView: View {
     var logEntrySection: some View {
         VStack(alignment: .leading) {
             logEntrySectionHeader
-            Divider()
-                .background(Color(.black))
             Spacer()
             logEntryRow(label: "Brewed with", value: newBrew.brew.brewEquipment)
             logEntryRow(label: "Beans Used", value: newBrew.brew.bean!.name!)
@@ -129,7 +128,7 @@ struct RatingView: View {
             Spacer()
         }
         .foregroundColor(Color("black"))
-        .padding([.top, .horizontal])
+        .padding(.horizontal)
         .background(Color("lightTan"))
     }
     
@@ -164,6 +163,7 @@ struct RatingView: View {
                 Text("RATE YOUR CUP:")
                     .font(.caption)
                     .bold()
+                    .foregroundColor(.black)
                 Spacer()
             }
             Picker(selection: $newBrew.brew.rating, label: Text("Cup Rating"), content: {
@@ -174,7 +174,9 @@ struct RatingView: View {
             .padding(viewConstants.pickerPadding)
             .pickerStyle(SegmentedPickerStyle())
             .background(RoundedRectangle(cornerRadius: viewConstants.rowCornerRadius).foregroundColor(AppStyle.listRowBackgroundColor))
-            .padding(.top)
+            .padding(.vertical)
+            Divider()
+                .background(Color(.black))
         }
         .padding()
     }
@@ -226,6 +228,7 @@ struct RatingView_Previews: PreviewProvider {
         NavigationView {
             RatingView(showSelf: .constant(true), newBrew: newBrew)
         }
+        .preferredColorScheme(.dark)
         .previewDevice("iPhone 12 Pro Max")
     }
 }

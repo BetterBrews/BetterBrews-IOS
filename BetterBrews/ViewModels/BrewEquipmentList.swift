@@ -12,6 +12,15 @@ import Foundation
 
 class BrewEquipmentList: ObservableObject {
     @Published var brewEquipment: [BrewEquipment] = []
+    enum MenuFilter: String, CaseIterable {
+        case showAll
+        case Favorites
+        case Espresso
+        case Immersion
+        case Pourover
+        case Drip
+        case Custom
+    }
     
     private static var documentsFolder: URL {
         do {
