@@ -8,22 +8,19 @@
 import SwiftUI
 
 struct GrindSelectionView: View {
-    @Binding var showSelf: Bool
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var showBrewStack: Bool
     @ObservedObject var newBrew: NewBrew
-    @State var nextPressed = false
+    @State var showWaterView = false
+    
+    var reviewMode = false
     
     var body: some View {
-        
-        grindInfoForm
-    }
-    
-//MARK: - Form
-    var grindInfoForm: some View {
         ZStack {
             Color("lightTan")
                 .ignoresSafeArea()
             VStack {
-                NavigationLink(destination: WaterTempView(showSelf: $showSelf, newBrew: newBrew),isActive: $nextPressed) {}
+                NavigationLink(destination: WaterInfoView(showBrewStack: $showBrewStack, newBrew: newBrew),isActive: $showWaterView) {}
                     .opacity(0)
                     .background(Color("lightTan"))
                 Form {
@@ -42,6 +39,7 @@ struct GrindSelectionView: View {
         }
     }
     
+    //MARK: - Grind Size Picker
     var grindSizePicker: some View {
         Section(header: Text("Grind Size").foregroundColor(Color("black"))) {
             HStack {
@@ -63,6 +61,7 @@ struct GrindSelectionView: View {
 
     }
     
+    //MARK: - Coffee Amount
     var coffeeAmountSection: some View {
         Section(header: Text("Coffee Measured").foregroundColor(Color("black"))) {
             HStack {
@@ -85,16 +84,25 @@ struct GrindSelectionView: View {
     }
     
     var nextButton: some View {
-        Button(action: { nextPressed.toggle() }) {
+        Button(action: nextPressed) {
             HStack {
-                Text("Enter Water Info")
+                Text(reviewMode ? "Review" : "Enter Water Info")
                 Spacer()
                 Image(systemName: "chevron.right")
             }
         }
-        .opacity(newBrew.brew.coffeeAmountString == "" ? 0.7 : 1)
+        .opacity(newBrew.brew.coffeeAmountString == "" ? 0.5 : 1)
         .foregroundColor(Color("gold"))
         .listRowBackground(Color("brown"))
+    }
+    
+    func nextPressed() {
+        if(reviewMode) {
+            presentationMode.wrappedValue.dismiss()
+        }
+        else {
+            showWaterView.toggle()
+        }
     }
     
     struct viewConstants {
@@ -113,7 +121,7 @@ enum GrindSize: String {
 struct GrindSelectionView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            GrindSelectionView(showSelf: .constant(true), newBrew: NewBrew(BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", estTime: 6, filters: ["Immersion"])))
+            GrindSelectionView(showBrewStack: .constant(true), newBrew: NewBrew(BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", estTime: 6, filters: ["Immersion"])))
         }
     }
 }

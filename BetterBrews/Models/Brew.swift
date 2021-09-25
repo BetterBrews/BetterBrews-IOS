@@ -1,8 +1,9 @@
 //
-//  PastBrews.swift
+//  Brew.swift
 //  BetterBrews
 //
-//  Model for each brew that is being created before being stored in the log
+//  Model to store data for brew before creating record in core data context
+//  Brew -> PastBrew(in context)
 //
 //  Created by Colby Haskell on 8/16/21.
 //
@@ -10,8 +11,7 @@
 import Foundation
 
 struct Brew {
-    //Store Data for brew before creating in context
-    let brewEquipment: String
+    var equipmentName: String
     var bean: Bean?
     var brewTime: Double?
     var coffeeUnit: CoffeeUnit = loadDefaultCoffeeUnit()
@@ -44,7 +44,7 @@ struct Brew {
     }
     
     init(_ method: BrewEquipment) {
-        brewEquipment = method.name
+        equipmentName = method.name
     }
     
     static func loadDefaultCoffeeUnit() -> CoffeeUnit {

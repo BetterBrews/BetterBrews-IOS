@@ -9,17 +9,18 @@ import SwiftUI
 
 struct BeanSelectionView: View {
     //Binding to root navigationlink isActive
-    @Binding var showSelf: Bool
+    @Binding var showBrewStack: Bool
     
     //BrewMethod selected from home view
     var newBrew: NewBrew
-    
     
     //State
     @State var showDelete: Bool = false
     @State private var searchText: String = ""
     @State private var searching: Bool = false
     @State private var showAddBeanView: Bool = false
+    
+    var reviewMode = false
 
     var body: some View {
         ZStack {
@@ -90,23 +91,26 @@ struct BeanSelectionView: View {
             }
         }
         
-        return resultsView(showSelf: $showSelf, beans: fetchRequest, showDelete: showDelete, newBrew: newBrew)
+        return resultsView(showSelf: $showBrewStack, beans: fetchRequest, newBrew: newBrew, showDelete: $showDelete, reviewMode: reviewMode)
     }
     
-    //View will dynaically update with filtered results from search text
+    //View will dynamically update with filtered results from search text
     struct resultsView: View {
+        @Environment(\.presentationMode) var presentationMode
         @Binding var showSelf: Bool
         @FetchRequest var beans: FetchedResults<Bean>
+        @ObservedObject var newBrew: NewBrew
         
-        var showDelete: Bool
-        var newBrew: NewBrew
+        @Binding var showDelete: Bool
+        
+        var reviewMode: Bool
         
         
         var body: some View {
             ScrollView {
                 VStack(spacing: 0) {
                     ForEach(beans) { bean in
-                        beanListItem(bean)
+                        beanListItem(bean, reviewMode: reviewMode)
                             .transition(.slide)
                     }
                 }
@@ -114,12 +118,10 @@ struct BeanSelectionView: View {
             }
         }
         
-        func beanListItem(_ bean: Bean) -> some View {
+        func beanListItem(_ bean: Bean, reviewMode: Bool) -> some View {
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
-                    NavigationLink(destination: GrindSelectionView(showSelf: $showSelf, newBrew: newBrew)
-                                    .onAppear(perform: { newBrew.brew.bean = bean })
-                    ) {
+                    if(reviewMode) {
                         HStack(spacing: 0) {
                             Text(bean.roaster ?? "Unknown")
                                 .padding([.leading, .vertical], constants.listRowSpacing)
@@ -131,9 +133,31 @@ struct BeanSelectionView: View {
                         .foregroundColor(AppStyle.accentColor)
                         .font(.headline)
                         .lineLimit(1)
+                        .background(Color("brown"))
+                        .onTapGesture {
+                            newBrew.brew.bean = bean
+                            presentationMode.wrappedValue.dismiss()
+                        }
                     }
-                    .isDetailLink(false)
-                    .background(Color("brown"))
+                    else {
+                        NavigationLink(destination: GrindSelectionView(showBrewStack: $showSelf, newBrew: newBrew)
+                                        .onAppear(perform: { newBrew.brew.bean = bean })
+                        ) {
+                            HStack(spacing: 0) {
+                                Text(bean.roaster ?? "Unknown")
+                                    .padding([.leading, .vertical], constants.listRowSpacing)
+                                Text(" - " + (bean.name ?? "Unknown"))
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .padding(constants.listRowSpacing)
+                            }
+                            .foregroundColor(AppStyle.accentColor)
+                            .font(.headline)
+                            .lineLimit(1)
+                        }
+                        .isDetailLink(false)
+                        .background(Color("brown"))
+                    }
                     if(showDelete) {
                         Button("Delete") {
                             withAnimation(.easeInOut) {
@@ -177,7 +201,7 @@ struct BeanSelectionView: View {
     
     var cancelButton: some View {
         Button("Cancel") {
-            showSelf = false
+            showBrewStack = false
         }
         .foregroundColor(constants.toolbarIconColor)
     }
@@ -188,7 +212,7 @@ struct BeanSelectionView: View {
                 .foregroundColor(constants.toolbarIconColor)
         }
         .sheet(isPresented: $showAddBeanView, content: {
-            AddBeanView()
+            AddBeanView().colorScheme(.dark)
         })
     }
     
@@ -202,7 +226,7 @@ struct BeanSelectionView: View {
 struct BeanSelectionView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            BeanSelectionView(showSelf: .constant(true), newBrew: NewBrew(BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", estTime: 6, filters: ["Immersion"])))
+            BeanSelectionView(showBrewStack: .constant(true), newBrew: NewBrew(BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", estTime: 6, filters: ["Immersion"])))
                 .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         }
     }

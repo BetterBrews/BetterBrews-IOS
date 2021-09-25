@@ -1,5 +1,5 @@
 //
-//  WaterTempView.swift
+//  WaterInfoView.swift
 //  BetterBrews
 //
 //  Created by Colby Haskell on 8/11/21.
@@ -7,10 +7,13 @@
 
 import SwiftUI
 
-struct WaterTempView: View {
-    @Binding var showSelf: Bool
+struct WaterInfoView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var showBrewStack: Bool
     @ObservedObject var newBrew: NewBrew
-    @State var nextPressed = false
+    @State var showRatingView = false
+    
+    var reviewMode = false
     
     var body: some View {
         UITableView.appearance().backgroundColor = UIColor(named: "tan")
@@ -26,6 +29,7 @@ struct WaterTempView: View {
         ZStack {
             Color("lightTan")
                 .ignoresSafeArea()
+            NavigationLink("Time and Rating Selection", destination: RatingView(showBrewStack: $showBrewStack, newBrew: newBrew), isActive: $showRatingView)
             VStack {
                 Form {
                     Section(header: Text("Water Temperature").foregroundColor(Color("black"))) {
@@ -53,7 +57,7 @@ struct WaterTempView: View {
                         .pickerStyle(SegmentedPickerStyle())
                     }
                     .listRowBackground(viewConstants.listRowBackground)
-                    Section(header: Text("Timer").foregroundColor(Color("black"))) {
+                    Section(header: Text("Next").foregroundColor(Color("black"))) {
                         nextButton
                     }
                     .listRowBackground(viewConstants.listRowBackground)
@@ -66,16 +70,24 @@ struct WaterTempView: View {
     
     var nextButton: some View {
         ZStack {
-            NavigationLink("Time and Rating Selection", destination: RatingView(showSelf: $showSelf, newBrew: newBrew), isActive: $nextPressed)
-            Button(action: {}) {
+            Button(action: nextPressed) {
                 HStack {
-                    Text("Time and Rating Selection")
+                    Text(reviewMode ? "Review" : "Time and Rating Selection")
                     Spacer()
                     Image(systemName: "chevron.right")
                 }
             }
             .foregroundColor(viewConstants.linkColor)
             .opacity((newBrew.brew.temperatureString == "" || newBrew.brew.waterAmountString == "") ? 0.7 : 1)
+        }
+    }
+    
+    func nextPressed() {
+        if(reviewMode) {
+            presentationMode.wrappedValue.dismiss()
+        }
+        else {
+            showRatingView.toggle()
         }
     }
     
@@ -94,7 +106,7 @@ struct WaterTempView: View {
 struct WaterTempView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            WaterTempView(showSelf: .constant(true), newBrew: NewBrew(BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", estTime: 6, filters: ["Immersion"])))
+            WaterInfoView(showBrewStack: .constant(true), newBrew: NewBrew(BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", estTime: 6, filters: ["Immersion"])))
         }
     }
 }

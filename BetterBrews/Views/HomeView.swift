@@ -12,6 +12,7 @@ struct HomeView: View {
     //MARK: - State
     @EnvironmentObject var globalSettings: GlobalSettings
     @EnvironmentObject var brewEquipment: BrewEquipmentList
+    
     @GestureState private var dragAmount = CGFloat.zero
     @State private var displayedIndex = 0
     @State private var menuFilter = MenuFilter.showAll
@@ -141,7 +142,7 @@ struct HomeView: View {
     }
     
     //MARK: - Card Carousel
-var brewCardCarousel: some View {
+    var brewCardCarousel: some View {
         //Dynamically compute card width based on screen size
         let cardWidth: CGFloat = UIScreen.main.bounds.width - (viewConstants.hiddenCardWidth*2) - (viewConstants.cardSpacing*2)
         
@@ -154,7 +155,7 @@ var brewCardCarousel: some View {
         var carousel: some View {
             GeometryReader { geo in
                 HStack {
-                    NavigationLink(destination: BeanSelectionView(showSelf: $showBrewProcess, newBrew: NewBrew(chosenBrew)).environmentObject(globalSettings), isActive: $showBrewProcess) {
+                    NavigationLink(destination: BeanSelectionView(showBrewStack: $showBrewProcess, newBrew: NewBrew(chosenBrew)).environmentObject(globalSettings), isActive: $showBrewProcess) {
                             EmptyView()
                     }
                     .isDetailLink(false)
@@ -346,6 +347,7 @@ var brewCardCarousel: some View {
                     Text("No Brews Yet...")
                         .font(.headline)
                         .bold()
+                        .foregroundColor(.black)
                     Spacer()
                 }
                 Spacer()
@@ -392,6 +394,12 @@ var brewCardCarousel: some View {
                 
             }
             .padding()
+        }
+        .onTapGesture {
+            if let equipment = brewEquipment.brewEquipment.first(where: { $0.name == brew.equipment!}) {
+                chosenBrew = equipment
+                showBrewProcess.toggle()
+            }
         }
     }
     

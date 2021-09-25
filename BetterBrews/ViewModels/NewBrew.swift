@@ -51,7 +51,7 @@ class NewBrew: ObservableObject {
         BrewsManager.saveBrew(brew)
     }
     
-    //For Preview Use
+    /* For Preview Use Only */
     init(method: BrewEquipment, beanName: String, grind: String, brewTime: Double, waterTemp: Int, waterAmount: Double, coffeeAmount: Double) {
         let bean = Bean(context: PersistenceController.preview.container.viewContext)
         bean.name = beanName

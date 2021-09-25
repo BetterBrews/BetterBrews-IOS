@@ -138,26 +138,36 @@ struct LogView: View {
     }
     
     func logCardList(_ brew: PastBrew) -> some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text(brew.equipment ?? "Brew")
-                    .bold()
-                    .font(.title2)
-                    .foregroundColor(Color("gold"))
-                Spacer()
+        let beanString = brew.bean!.roaster! + " " + brew.bean!.name!
+        let grindString = brew.grind?.capitalizingFirstLetter() ?? "Grind"
+        let coffeeAmountString = (String(brew.coffeeAmount) + brew.coffeeUnitString!)
+        let waterAmountString = (String(brew.waterAmount) + brew.waterVolumeUnitString!)
+        let waterTempString = (String(brew.waterTemp) + (brew.formattedTemperatureUnitString))
+        let brewTimeString = String(format: "%2d:%02d", brew.timeMinutes(), brew.timeSeconds())
+        let brewRatingString = String(brew.rating)
+        
+        return
+            VStack(alignment: .leading) {
+                HStack {
+                    Text(brew.equipment ?? "Brew")
+                        .bold()
+                        .font(.title2)
+                        .foregroundColor(Color("gold"))
+                    Spacer()
+                }
+                .padding()
+                VStack {
+                    logCardRow("Beans:", beanString, showDivider: true)
+                    logCardRow("Grind Size:", grindString, showDivider: true)
+                    logCardRow("Coffee Amount:", coffeeAmountString, showDivider: true)
+                    logCardRow("Water Amount:", waterAmountString, showDivider: true)
+                    logCardRow("Water Temperature:", waterTempString, showDivider: true)
+                    logCardRow("Brew Time:", brewTimeString, showDivider: true)
+                    logCardRow("Rating:", brewRatingString, showDivider: false)
+                }
+                .padding([.horizontal, .bottom])
             }
             .padding()
-            VStack {
-                logCardRow("Grind Size:", brew.grind?.capitalizingFirstLetter() ?? "Grind", showDivider: true)
-                logCardRow("Coffee Amount:", (String(brew.coffeeAmount) + brew.coffeeUnitString!), showDivider: true)
-                logCardRow("Water Amount:", (String(brew.waterAmount) + brew.waterVolumeUnitString!), showDivider: true)
-                logCardRow("Water Temperature:", (String(brew.waterTemp) + (brew.formattedTemperatureUnitString ?? String(format:"%@C", "\u{00B0}"))), showDivider: true)
-                logCardRow("Brew Time:", String(format: "%2d:%02d", brew.timeMinutes(), brew.timeSeconds()), showDivider: true)
-                logCardRow("Rating:", String(brew.rating), showDivider: false)
-            }
-            .padding([.horizontal, .bottom])
-        }
-        .padding()
     }
     
     func logCardRow(_ label: String, _ value: String, showDivider: Bool) -> some View {

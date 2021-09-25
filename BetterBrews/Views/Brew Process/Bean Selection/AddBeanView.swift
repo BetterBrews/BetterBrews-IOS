@@ -25,7 +25,9 @@ struct AddBeanView: View {
             Form {
                 Section(header: nameSectionTitle) {
                     TextField("Roaster", text: $roasterName)
+                        .foregroundColor(Color("gold"))
                     TextField("Bean Name", text: $beanName)
+                        .foregroundColor(Color("gold"))
                 }
                 
                 Section(header: Text("Roast Type").foregroundColor(viewConstants.headerColor)) {
@@ -47,6 +49,7 @@ struct AddBeanView: View {
                             Spacer()
                         }
                     }
+                    .foregroundColor(Color("gold"))
                     .disabled(roasterName == "" || beanName == "")
                 }
                 Section {
@@ -72,7 +75,7 @@ struct AddBeanView: View {
     }
     
     struct viewConstants {
-        static let headerColor = Color("black")
+        static let headerColor: Color = .black
     }
 }
 

@@ -58,6 +58,9 @@ class BrewEquipmentList: ObservableObject {
         brewEquipment.append(BrewEquipment(id: nextId, name: name, type: type, notes: notes, estTime: estTime, filters: ["Custom"]))
         saveBrews()
     }
+    func search(searchText: String) -> [BrewEquipment] {
+        return brewEquipment.filter( { $0.name.contains(searchText) })
+    }
     
     func addAsFavorite(_ id: Int) {
         guard let index = brewEquipment.firstIndex(where: { $0.id == id }) else {

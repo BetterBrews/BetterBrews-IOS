@@ -4,15 +4,17 @@
 //
 //  Created by Colby Haskell on 9/3/21.
 //
+//  TODO:
+//  Test length limits on text in log review
+//  Add Timer Option
 
 import SwiftUI
 
 struct RatingView: View {
     //MARK: - State
-    @Binding var showSelf: Bool
+    @Binding var showBrewStack: Bool
     @ObservedObject var newBrew: NewBrew
     @State private var editingTime: Bool = true
-    //@State private var tasteNotesString: String = ""
     
     //MARK: - Body
     var body: some View {
@@ -27,12 +29,18 @@ struct RatingView: View {
                         .transition(.opacity)
                         .animation(.spring(), value: editingTime)
                 }
-                inputForm
-                    .navigationBarTitleDisplayMode(.inline)
-                    .navigationTitle("Review")
-                    .toolbar(content: {
-                        Button(action: finish) { Text("Finish").foregroundColor(AppStyle.bodyTextColor) }
-                    })
+                VStack {
+                    ratingPicker
+                    logEntryReview(newBrew)
+                }
+                .background(AppStyle.backgroundColor)
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("Review")
+                .toolbar(content: {
+                    Button(action: finish) {
+                        Text("Finish").foregroundColor(AppStyle.bodyTextColor)
+                    }
+                })
             }
         }
     }
@@ -104,59 +112,109 @@ struct RatingView: View {
         .background(Color("brown"))
     }
     
-    //MARK: - Input Form
-    var inputForm: some View {
-        VStack {
-            ratingPicker
-            logEntrySection
+    //MARK: - Log Entry Review Section
+    struct logEntryReview: View {
+        @ObservedObject var newBrew: NewBrew
+        
+        //Compute strings to display
+        private var coffeeAmountString: String {
+            newBrew.brew.coffeeAmountString + newBrew.brew.coffeeUnit.rawValue
         }
-        .background(AppStyle.backgroundColor)
-    }
-    
-    //MARK: - Log Entry Section
-    var logEntrySection: some View {
-        VStack(alignment: .leading) {
-            logEntrySectionHeader
-            Spacer()
-            logEntryRow(label: "Brewed with", value: newBrew.brew.brewEquipment)
-            logEntryRow(label: "Beans Used", value: newBrew.brew.bean!.name!)
-            logEntryRow(label: "Grind Size", value: newBrew.brew.grindSizeString!)
-            logEntryRow(label: "Coffee Amount", value: (newBrew.brew.coffeeAmountString + newBrew.brew.coffeeUnit.rawValue))
-            logEntryRow(label: "Water Amount", value: String(newBrew.brew.waterAmount!))
-            logEntryRow(label: "Water Temperature", value:
-                            newBrew.brew.temperatureString + newBrew.brew.temperatureUnitString)
-            Spacer()
+        private var waterAmountString: String {
+            String(newBrew.brew.waterAmount!) + newBrew.brew.waterVolumeUnit.rawValue
         }
-        .foregroundColor(Color("black"))
-        .padding(.horizontal)
-        .background(Color("lightTan"))
-    }
-    
-    var logEntrySectionHeader: some View {
-        HStack {
-            Text("Log Entry:")
-                .bold()
-                .font(.title)
-            Spacer()
+        private var waterTemperatureString: String {
+            newBrew.brew.temperatureString + newBrew.brew.temperatureUnitString
         }
-    }
-    
-    func logEntryRow(label: String, value: String) -> some View {
-        VStack {
-            Spacer(minLength: 0)
-            HStack {
-                Text(label + ":")
+        private var beanNameString: String {
+            //Test and limit text length if necessary
+            newBrew.brew.bean!.roaster! + " " + newBrew.brew.bean!.name!
+        }
+        
+        //State for editing views
+        @State private var editEquipment = false
+        @State private var editBeans = false
+        @State private var editGrind = false
+        @State private var editWater = false
+        
+        init(_ newBrew: NewBrew) {
+            self.newBrew = newBrew
+        }
+        
+        var body: some View {
+            VStack(alignment: .leading) {
+                logEntrySectionHeader
                 Spacer()
-                Button(action: { }) {
-                    Text(value)
-                    Image(systemName: "chevron.right")
-                }
-                .foregroundColor(Color("lightBrown"))
+                logEntryRow(label: "Brewed with", value: newBrew.brew.equipmentName)
+                    .onTapGesture {
+                        editEquipment.toggle()
+                    }
+                    .sheet(isPresented: $editEquipment) {
+                        EditEquipmentView(newBrew: newBrew)
+                    }
+                logEntryRow(label: "Beans Used", value: beanNameString)
+                    .onTapGesture {
+                        editBeans.toggle()
+                    }
+                    .sheet(isPresented: $editBeans) {
+                        BeanSelectionView(showBrewStack: .constant(true), newBrew: newBrew, reviewMode: true)
+                    }
+                logEntryRow(label: "Grind Size", value: newBrew.brew.grindSizeString!)
+                    .onTapGesture {
+                        editGrind.toggle()
+                    }
+                    .sheet(isPresented: $editGrind) {
+                        GrindSelectionView(showBrewStack: .constant(true), newBrew: newBrew, reviewMode: true)
+                    }
+                logEntryRow(label: "Coffee Amount", value: coffeeAmountString)
+                    .onTapGesture {
+                        editGrind.toggle()
+                    }
+                logEntryRow(label: "Water Amount", value: waterAmountString)
+                    .onTapGesture {
+                        editWater.toggle()
+                    }
+                    .sheet(isPresented: $editWater) {
+                        WaterInfoView(showBrewStack: .constant(true), newBrew: newBrew, reviewMode: true)
+                    }
+                logEntryRow(label: "Water Temperature", value: waterTemperatureString)
+                    .onTapGesture {
+                        editWater.toggle()
+                    }
+                Spacer()
             }
-            .font(.headline)
-            Spacer(minLength: 0)
+            .foregroundColor(Color("black"))
+            .padding(.horizontal)
+            .background(Color("lightTan"))
+        }
+        var logEntrySectionHeader: some View {
+            HStack {
+                Text("Log Entry:")
+                    .bold()
+                    .font(.title)
+                Spacer()
+            }
+        }
+        
+        func logEntryRow(label: String, value: String) -> some View {
+                VStack {
+                    Spacer(minLength: 0)
+                    HStack {
+                        Text(label + ":")
+                        Spacer()
+                        HStack {
+                            Text(value)
+                            Image(systemName: "chevron.right")
+                        }
+                        .foregroundColor(Color("lightBrown"))
+                    }
+                    .font(.headline)
+                    Spacer(minLength: 0)
+                }
         }
     }
+    
+    
     var ratingPicker: some View {
         VStack {
             HStack {
@@ -208,7 +266,7 @@ struct RatingView: View {
     func finish() {
         withAnimation {
             newBrew.save()
-            showSelf.toggle()
+            showBrewStack.toggle()
         }
     }
     
@@ -226,7 +284,7 @@ struct RatingView_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            RatingView(showSelf: .constant(true), newBrew: newBrew)
+            RatingView(showBrewStack: .constant(true), newBrew: newBrew)
         }
         .preferredColorScheme(.dark)
         .previewDevice("iPhone 12 Pro Max")

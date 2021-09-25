@@ -10,9 +10,7 @@ import Foundation
 //
 //
 //TODO: Add Brew Time
-struct BrewEquipment: Identifiable, Codable {
-    //TODO: Add estTime, suggested settings(coffee:water ratio, etc.)
-    
+struct BrewEquipment: Identifiable, Codable, Equatable {
     let id: Int
     let name: String
     let type: String

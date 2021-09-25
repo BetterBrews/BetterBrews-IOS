@@ -17,6 +17,7 @@
 		531FC9F626D085CA00386EA7 /* PastBrew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FC9F526D085CA00386EA7 /* PastBrew.swift */; };
 		53255A0526D0C0AD001F65C5 /* GlobalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53255A0426D0C0AD001F65C5 /* GlobalSettings.swift */; };
 		53255A0726D18E87001F65C5 /* Rubik.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53255A0626D18E87001F65C5 /* Rubik.ttf */; };
+		5330FB7726FF8628005AB075 /* EditEquipmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5330FB7626FF8628005AB075 /* EditEquipmentView.swift */; };
 		53574BDB26C43C7700F0A1A7 /* BetterBrewsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53574BDA26C43C7700F0A1A7 /* BetterBrewsApp.swift */; };
 		53574BDD26C43C7700F0A1A7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53574BDC26C43C7700F0A1A7 /* HomeView.swift */; };
 		53574BDF26C43C7A00F0A1A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53574BDE26C43C7A00F0A1A7 /* Assets.xcassets */; };
@@ -37,7 +38,7 @@
 		53DF66D226C45A08001EF4EC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DF66D126C45A08001EF4EC /* SettingsView.swift */; };
 		53DF66D426C4BBA2001EF4EC /* BeanSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DF66D326C4BBA2001EF4EC /* BeanSelectionView.swift */; };
 		53DF66D626C4BBB4001EF4EC /* GrindSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DF66D526C4BBB4001EF4EC /* GrindSelectionView.swift */; };
-		53DF66D826C4BBC3001EF4EC /* WaterTempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DF66D726C4BBC3001EF4EC /* WaterTempView.swift */; };
+		53DF66D826C4BBC3001EF4EC /* WaterInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DF66D726C4BBC3001EF4EC /* WaterInfoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		531FC9F526D085CA00386EA7 /* PastBrew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastBrew.swift; sourceTree = "<group>"; };
 		53255A0426D0C0AD001F65C5 /* GlobalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSettings.swift; sourceTree = "<group>"; };
 		53255A0626D18E87001F65C5 /* Rubik.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rubik.ttf; sourceTree = "<group>"; };
+		5330FB7626FF8628005AB075 /* EditEquipmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditEquipmentView.swift; sourceTree = "<group>"; };
 		53574BD726C43C7700F0A1A7 /* BetterBrews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetterBrews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53574BDA26C43C7700F0A1A7 /* BetterBrewsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterBrewsApp.swift; sourceTree = "<group>"; };
 		53574BDC26C43C7700F0A1A7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -73,7 +75,7 @@
 		53DF66D126C45A08001EF4EC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		53DF66D326C4BBA2001EF4EC /* BeanSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeanSelectionView.swift; sourceTree = "<group>"; };
 		53DF66D526C4BBB4001EF4EC /* GrindSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrindSelectionView.swift; sourceTree = "<group>"; };
-		53DF66D726C4BBC3001EF4EC /* WaterTempView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterTempView.swift; sourceTree = "<group>"; };
+		53DF66D726C4BBC3001EF4EC /* WaterInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterInfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,15 @@
 				53255A0626D18E87001F65C5 /* Rubik.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		5330FB7826FF9150005AB075 /* Review and Edit */ = {
+			isa = PBXGroup;
+			children = (
+				5330FB7626FF8628005AB075 /* EditEquipmentView.swift */,
+				530A7D5026E2E6910010CA09 /* RatingView.swift */,
+			);
+			path = "Review and Edit";
 			sourceTree = "<group>";
 		};
 		53574BCE26C43C7700F0A1A7 = {
@@ -224,8 +235,8 @@
 			children = (
 				531FC9EE26CC172200386EA7 /* Bean Selection */,
 				53DF66D526C4BBB4001EF4EC /* GrindSelectionView.swift */,
-				53DF66D726C4BBC3001EF4EC /* WaterTempView.swift */,
-				530A7D5026E2E6910010CA09 /* RatingView.swift */,
+				53DF66D726C4BBC3001EF4EC /* WaterInfoView.swift */,
+				5330FB7826FF9150005AB075 /* Review and Edit */,
 			);
 			path = "Brew Process";
 			sourceTree = "<group>";
@@ -310,7 +321,7 @@
 				53574BE426C43C7A00F0A1A7 /* Persistence.swift in Sources */,
 				53DF66D426C4BBA2001EF4EC /* BeanSelectionView.swift in Sources */,
 				5384EF2C26C5B4EE00D074B6 /* BrewEquipment.swift in Sources */,
-				53DF66D826C4BBC3001EF4EC /* WaterTempView.swift in Sources */,
+				53DF66D826C4BBC3001EF4EC /* WaterInfoView.swift in Sources */,
 				53574BE726C43C7A00F0A1A7 /* BetterBrews.xcdatamodeld in Sources */,
 				538BE45C26C82EC600BC9AAC /* SearchBar.swift in Sources */,
 				531FC9ED26CC14E600386EA7 /* AddBeanView.swift in Sources */,
@@ -326,6 +337,7 @@
 				53948A8726CABCF300181B7B /* Brew.swift in Sources */,
 				53DF66D026C45A02001EF4EC /* LogView.swift in Sources */,
 				53574BDB26C43C7700F0A1A7 /* BetterBrewsApp.swift in Sources */,
+				5330FB7726FF8628005AB075 /* EditEquipmentView.swift in Sources */,
 				531FC9EB26CBF39300386EA7 /* NewBrew.swift in Sources */,
 				538BE46126C86FC100BC9AAC /* BeanManager.swift in Sources */,
 			);

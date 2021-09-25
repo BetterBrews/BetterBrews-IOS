@@ -15,8 +15,24 @@ struct BrewsManager {
     static func saveBrew(_ brew: Brew) {
         let newBrew = PastBrew(context: viewContext)
         newBrew.date = Date()
-        newBrew.equipment = brew.brewEquipment
-        newBrew.bean = brew.bean!
+        
+        //Connect Bean to Brew
+        let beanRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Bean")
+        beanRequest.predicate = NSPredicate(format: "name CONTAINS %@", brew.bean!.name!)
+        do {
+            let beans = try viewContext.fetch(beanRequest)
+            let bean: Bean = beans.first.unsafelyUnwrapped as! Bean
+            newBrew.bean = bean
+        }
+        catch {
+            newBrew.bean = Bean(context: viewContext)
+            newBrew.bean!.roaster = brew.bean!.roaster
+            newBrew.bean!.roast = brew.bean!.roast
+            newBrew.bean!.name = brew.bean!.name
+        }
+        
+        //
+        newBrew.equipment = brew.equipmentName
         //Coffee
         newBrew.coffeeAmount = brew.coffeeAmount!
         newBrew.grind = brew.grindSizeString!
