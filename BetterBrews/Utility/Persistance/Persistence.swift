@@ -15,7 +15,7 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<10 {
+        for _ in 0..<5 {
             let newItem = Bean(context: viewContext)
             newItem.roaster = "Carrabassett Valley Coffee"
             newItem.name = "Jamaica Me Crazy"
@@ -25,8 +25,24 @@ struct PersistenceController {
             newBrew.bean = newItem
             newBrew.brewTime = 5
             newBrew.coffeeAmount = 5
-            newBrew.date = Date()
+            newBrew.date = Date(timeIntervalSinceNow: TimeInterval(-24*3600))
             newBrew.grind = "coarse"
+            newBrew.coffeeUnit = CoffeeUnit.g
+            newBrew.waterVolumeUnit = WaterVolumeUnit.mL
+            newBrew.temperatureUnit = TemperatureUnit.celcius
+        }
+        for _ in 0..<5 {
+            let newItem = Bean(context: viewContext)
+            newItem.roaster = "44 North"
+            newItem.name = "Royal Tar"
+            
+            let newBrew = PastBrew(context: viewContext)
+            newBrew.equipment = "Hario V60"
+            newBrew.bean = newItem
+            newBrew.brewTime = 3
+            newBrew.coffeeAmount = 32.5
+            newBrew.date = Date()
+            newBrew.grind = "fine"
             newBrew.coffeeUnit = CoffeeUnit.g
             newBrew.waterVolumeUnit = WaterVolumeUnit.mL
             newBrew.temperatureUnit = TemperatureUnit.celcius

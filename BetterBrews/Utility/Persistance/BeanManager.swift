@@ -55,4 +55,14 @@ class BeanManager {
         let bean = fetchedBean.first.unsafelyUnwrapped as! Bean
         return bean
     }
+    
+    static func allBeans() -> [Bean] {
+        let beanRequest = NSFetchRequest<Bean>(entityName: "Bean")
+        do {
+            return try viewContext.fetch(beanRequest)
+        }
+        catch {
+            return []
+        }
+    }
 }

@@ -13,24 +13,31 @@ struct LogView: View {
     @EnvironmentObject var settings: GlobalSettings
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "date", ascending: false)])
     private var pastBrews: FetchedResults<PastBrew>
-    
-    @State private var menuFilter = BrewEquipmentList.MenuFilter.showAll
+
+    @State private var sortBy = SortBy.mostRecent
     @State private var editing = false
+    
+    
+    private enum SortBy: String, CaseIterable {
+        case mostRecent = "Most Recent"
+        case oldest = "Oldest"
+        case name = " Equipment Name"
+    }
 
     
     private var pastBrewsToShow: [PastBrew] {
-        switch(menuFilter) {
-        case .Favorites:
-            return pastBrews.filter() { pastBrew in
-                return brews.favorites.contains(where: { $0.name == pastBrew.equipment })
-            }
-        case .showAll:
-            return pastBrews.map( { return $0 })
-        default:
-            return pastBrews.filter({ pastBrew in
-                //
-                // Return this past brew if the selected filter is in the filters list of this given brew equipment
-                return (brews.brewEquipment.first(where: { $0.name == pastBrew.equipment })?.filters.contains(menuFilter.rawValue)) ?? false
+        switch(sortBy) {
+        case .mostRecent:
+            return pastBrews.sorted(by: {
+                $0.date! >= $1.date!
+            })
+        case .oldest:
+            return pastBrews.sorted(by: {
+                $0.date! <= $1.date!
+            })
+        case .name:
+            return pastBrews.sorted(by: {
+                $0.equipment! < $1.equipment!
             })
         }
     }
@@ -118,15 +125,14 @@ struct LogView: View {
     
     var filterMenu: some View {
         Menu(content: {
-            ForEach(BrewEquipmentList.MenuFilter.allCases, id: \.self) { menuCase in
-                menuButton(text: menuCase == BrewEquipmentList.MenuFilter.showAll ? "Show All" : menuCase.rawValue, filter: menuCase)
-            }        } ) {
-            RoundedButton(buttonText: menuFilter == BrewEquipmentList.MenuFilter.showAll ? "Show All" : menuFilter.rawValue, buttonImage: "line.horizontal.3.circle", isSelected: true, action: {})
-        }
-    }
-    
-    func menuButton(text: String, filter: BrewEquipmentList.MenuFilter) -> some View {
-        RoundedButton(buttonText: text, isSelected: (menuFilter == filter), action: { menuFilter = filter })
+            Picker("Sort By", selection: $sortBy, content: {
+                    ForEach(SortBy.allCases, id: \.self) { sortCase in
+                        Text(sortCase.rawValue)
+                    }
+                })
+        }, label:  {
+            RoundedButton(buttonText: (sortBy.rawValue), buttonImage: "line.horizontal.3.circle", isSelected: true, action: {})
+        })
     }
     
     func logCard(_ brew: PastBrew) -> some View {
