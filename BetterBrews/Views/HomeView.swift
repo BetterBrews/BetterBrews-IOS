@@ -272,14 +272,24 @@ struct HomeView: View {
         }
     }
     
-    private func cardAverageRatingString(_ brewName: String) -> String {
-        //let brews = pastBrews.all
-        let date = dateLastUsed(brewName)
-        if(date == Date(timeIntervalSince1970: 0)) {
-            return "N/A"
+    private func cardAverageRatingString(_ equipmentName: String) -> String {
+        
+        let matchingBrews = pastBrews.filter( { $0.equipment == equipmentName })
+        
+        let ratings: [Int] = matchingBrews.filter({
+            if($0.rating != 0 ) {
+                return true
+            }
+            else {
+                return false
+            }
+        })
+            .map({ Int($0.rating) } )
+        if(ratings.count == 0) {
+            return String("N/A")
         }
         else {
-            return date.stringFromDate()
+            return String(ratings.reduce(0, +) / ratings.count)
         }
     }
     
