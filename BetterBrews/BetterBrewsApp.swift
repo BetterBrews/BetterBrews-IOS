@@ -27,6 +27,7 @@ struct BetterBrewsApp: App {
     }
     
     func setUIAppearance() {
+        //Navigation Bar
         UINavigationBar.appearance().backgroundColor = UIColor(named: "lightTan")
         UINavigationBar.appearance().barTintColor = UIColor(named: "lightTan")
         UINavigationBar.appearance().shadowImage = UIImage()
@@ -34,7 +35,8 @@ struct BetterBrewsApp: App {
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(named: "black")!]
         UINavigationBar.appearance().tintColor = AppStyle.UIBodyTextColor
         
+        //Form Appearance
         UITableView.appearance().backgroundColor = UIColor(named: "tan")
-        UITextView.appearance().backgroundColor = .clear
+        UITableView.appearance().separatorColor = UIColor(.secondary)
     }
 }

@@ -8,12 +8,12 @@
 import Foundation
 
 extension Bean {
-    var roast: RoastType {
+    var roast: RoastType? {
         get {
             return RoastType(rawValue: self.roastType) ?? .medium
         }
         set {
-            self.roastType = newValue.rawValue
+            self.roastType = newValue!.rawValue
         }
     }
 }

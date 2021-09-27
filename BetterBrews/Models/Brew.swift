@@ -20,11 +20,11 @@ struct Brew {
     
     var temperatureString: String = ""
     var coffeeAmountString: String = ""
-    var waterAmountString: String = ""
+    var waterVolumeString: String = ""
     
     var notes: String = ""
     
-    //Value from 1-10, default is 0
+    //Rating from 1-10, 0 = Not Yet Rated
     var rating: Int = 0
     
     var grindSize: GrindSize = GrindSize.medium
@@ -32,8 +32,8 @@ struct Brew {
     var waterTemp: Double? {
         Double(temperatureString)
     }
-    var waterAmount: Double? {
-        Double(waterAmountString)
+    var waterVolume: Double? {
+        Double(waterVolumeString)
     }
     var coffeeAmount: Double? {
         Double(coffeeAmountString)
@@ -45,6 +45,26 @@ struct Brew {
     
     init(_ method: BrewEquipment) {
         equipmentName = method.name
+    }
+    
+    init(pastBrew: PastBrew) {
+        equipmentName = pastBrew.equipment!
+        bean = pastBrew.bean
+        brewTime = pastBrew.brewTime
+        coffeeUnit = pastBrew.coffeeUnit
+        temperatureUnit = pastBrew.temperatureUnit
+        waterVolumeUnit = pastBrew.waterVolumeUnit
+        notes = pastBrew.notes ?? " "
+        rating = Int(pastBrew.rating)
+        grindSize = GrindSize(rawValue: pastBrew.grind ?? GrindSize.medium.rawValue) ?? GrindSize.medium
+        temperatureString = String(pastBrew.waterTemp)
+        coffeeAmountString = String(pastBrew.coffeeAmount)
+        waterVolumeString = String(pastBrew.waterAmount)
+        
+    }
+    
+    init(_ method: String) {
+        equipmentName = method
     }
     
     static func loadDefaultCoffeeUnit() -> CoffeeUnit {

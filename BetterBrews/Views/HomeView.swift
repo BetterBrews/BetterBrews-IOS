@@ -356,8 +356,10 @@ struct HomeView: View {
                 VStack() {
                     ScrollView(.vertical) {
                         VStack(spacing: viewConstants.recentlyUsedSpacing) {
-                            ForEach(pastBrews) { brew in
-                                recentCard(brew)
+                            ForEach(0..<5) { index in
+                                if(index < pastBrews.count) {
+                                    recentCard(pastBrews[index])
+                                }
                             }
                         }
                     }
@@ -368,37 +370,47 @@ struct HomeView: View {
         .background(Color("lightTan"))
     }
     
-    func recentCard(_ brew: PastBrew) -> some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 25.0)
-                .foregroundColor(Color("black"))
-            HStack {
-                VStack(alignment: .leading, spacing: viewConstants.recentCardSpacing) {
-                    HStack {
-                        Text(brew.equipment!)
-                            .font(.headline)
-                            .foregroundColor(AppStyle.accentColor)
-                        Spacer()
-                    }
-                    HStack {
-                        Text("Last Used:")
-                            .font(.caption)
-                            .foregroundColor(.white)
-                        Text(brew.date!.stringFromDate())
-                            .font(.caption)
-                            .foregroundColor(.white)
-                    }
-                }
-                Image(systemName: "chevron.right")
-                    .foregroundColor(AppStyle.accentColor)
-                
-            }
-            .padding()
+    struct recentCard: View {
+        @ObservedObject var brew: PastBrew
+        @State private var editingView = false
+        
+        init(_ brew: PastBrew) {
+            self.brew = brew
         }
-        .onTapGesture {
-            if let equipment = brewEquipment.brewEquipment.first(where: { $0.name == brew.equipment!}) {
-                chosenBrew = equipment
-                showBrewProcess.toggle()
+        
+        var body: some View {
+            NavigationLink(destination: RatingView(showBrewStack: $editingView, newBrew: NewBrew(from: brew), editing: true), isActive: $editingView) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 25.0)
+                        .foregroundColor(Color("black"))
+                    HStack {
+                        VStack(alignment: .leading, spacing: viewConstants.recentCardSpacing) {
+                            HStack {
+                                Text(brew.equipment!)
+                                    .font(.headline)
+                                    .foregroundColor(AppStyle.accentColor)
+                                Spacer()
+                            }
+                            HStack {
+                                Text("Last Used:")
+                                    .font(.caption)
+                                    .foregroundColor(.white)
+                                Text(brew.date!.stringFromDate())
+                                    .font(.caption)
+                                    .foregroundColor(.white)
+                            }
+                        }
+                        Text(Int(brew.rating) == 0 ? "Rate Now" : String(Int(brew.rating)))
+                            .font(.title2)
+                            .bold()
+                            .foregroundColor(AppStyle.accentColor)
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(AppStyle.accentColor)
+                            .padding(.leading)
+                        
+                    }
+                    .padding()
+                }
             }
         }
     }

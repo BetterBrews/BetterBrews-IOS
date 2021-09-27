@@ -16,6 +16,8 @@ struct RatingView: View {
     @ObservedObject var newBrew: NewBrew
     @State private var editingTime: Bool = true
     
+    var editing = false
+    
     //MARK: - Body
     var body: some View {
         ZStack {
@@ -121,7 +123,7 @@ struct RatingView: View {
             newBrew.brew.coffeeAmountString + newBrew.brew.coffeeUnit.rawValue
         }
         private var waterAmountString: String {
-            String(newBrew.brew.waterAmount!) + newBrew.brew.waterVolumeUnit.rawValue
+            String(newBrew.brew.waterVolume!) + newBrew.brew.waterVolumeUnit.rawValue
         }
         private var waterTemperatureString: String {
             newBrew.brew.temperatureString + newBrew.brew.temperatureUnitString
@@ -264,9 +266,17 @@ struct RatingView: View {
     }
     
     func finish() {
-        withAnimation {
-            newBrew.save()
-            showBrewStack.toggle()
+        if(!editing) {
+            withAnimation {
+                newBrew.save()
+                showBrewStack.toggle()
+            }
+        }
+        else {
+            withAnimation {
+                newBrew.update()
+                showBrewStack.toggle()
+            }
         }
     }
     

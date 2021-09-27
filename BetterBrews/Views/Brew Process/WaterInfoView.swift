@@ -45,7 +45,7 @@ struct WaterInfoView: View {
                     }
                     .listRowBackground(viewConstants.listRowBackground)
                     Section(header: Text("Water Measured").foregroundColor(Color("black"))) {
-                        TextField("Amount", text: $newBrew.brew.waterAmountString)
+                        TextField("Amount", text: $newBrew.brew.waterVolumeString)
                             .keyboardType(.decimalPad)
                             .foregroundColor(.white)
                             .accentColor(AppStyle.accentColor)
@@ -78,7 +78,7 @@ struct WaterInfoView: View {
                 }
             }
             .foregroundColor(viewConstants.linkColor)
-            .opacity((newBrew.brew.temperatureString == "" || newBrew.brew.waterAmountString == "") ? 0.7 : 1)
+            .opacity((newBrew.brew.temperatureString == "" || newBrew.brew.waterVolumeString == "") ? 0.7 : 1)
         }
     }
     
@@ -94,7 +94,7 @@ struct WaterInfoView: View {
     //MARK: - Functions
     func fillRecommended() {
         newBrew.brew.temperatureString = "100"
-        newBrew.brew.waterAmountString = "500"
+        newBrew.brew.waterVolumeString = "500"
     }
     
     struct viewConstants {

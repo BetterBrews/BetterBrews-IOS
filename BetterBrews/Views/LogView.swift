@@ -98,6 +98,7 @@ struct LogView: View {
             Spacer()
             Text("No brews yet...")
                 .font(.headline)
+                .foregroundColor(.black)
             Spacer()
         }
     }

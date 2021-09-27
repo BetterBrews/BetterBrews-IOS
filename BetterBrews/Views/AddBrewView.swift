@@ -25,7 +25,7 @@ struct AddBrewView: View {
             Section {
                 TextField("Brewer Name", text: $newBrewName)
                 TextField("Type", text: $newBrewType)
-                TextField("Time in Minutes", text: $newBrewTime)
+                TextField("Est. Time in Minutes", text: $newBrewTime)
             }
             .accentColor(AppStyle.accentColor)
             .foregroundColor(.white)

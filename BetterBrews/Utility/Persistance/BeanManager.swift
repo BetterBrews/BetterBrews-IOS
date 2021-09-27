@@ -12,13 +12,14 @@ class BeanManager {
     private static var viewContext = PersistenceController.viewContext
     
     //Add bean
-    static func addBean(name: String, roaster: String, roast: RoastType, date: Date) {
+    static func addBean(name: String?, roaster: String?, roast: RoastType?, date: Date?) {
         let newBean = Bean(context: PersistenceController.viewContext)
-        newBean.name = name
-        newBean.roaster = roaster
-        newBean.roast = roast
-        newBean.datePurchased = date
+        newBean.name = name ?? "N/A"
+        newBean.roaster = roaster ?? "N/A"
+        newBean.roast = roast ?? RoastType.medium
+        newBean.datePurchased = date ?? Date()
         PersistenceController.saveContext()
+        print("Bean Saved")
     }
     
     //Delete a specific bean
@@ -43,5 +44,15 @@ class BeanManager {
         }
         print("Cleared Beans")
         PersistenceController.saveContext()
+    }
+    
+    static func getBean(named name: String) throws -> Bean {
+        //Connect Bean to Brew
+        let beanRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Bean")
+        beanRequest.predicate = NSPredicate(format: "name CONTAINS %@", name)
+    
+        let fetchedBean = try viewContext.fetch(beanRequest)
+        let bean = fetchedBean.first.unsafelyUnwrapped as! Bean
+        return bean
     }
 }

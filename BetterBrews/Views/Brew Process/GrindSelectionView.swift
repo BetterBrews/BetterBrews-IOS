@@ -30,6 +30,7 @@ struct GrindSelectionView: View {
                         nextButton
                     }
                 }
+                .background(Color("tan"))
                 .padding(.top)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationTitle("Prepare Beans")
