@@ -45,6 +45,7 @@ struct SettingsView: View {
                 }
             }
             .pickerStyle(SegmentedPickerStyle())
+            .colorScheme(.dark)
             .listRowBackground(viewConstants.listRowBackground)
             Section(header: Text("Clear Data")) {
                 Button(action: clearLog ) {
@@ -60,6 +61,7 @@ struct SettingsView: View {
                 }
                 .foregroundColor(.red)
             }
+            .listRowBackground(Color.black)
             Section(header: Text("About").foregroundColor(viewConstants.headerColor)) {
                 HStack {
                     Text("Version")
@@ -120,7 +122,7 @@ struct SettingsView_Previews: PreviewProvider {
             SettingsView()
                 .environmentObject(GlobalSettings())
         }
-        .preferredColorScheme(.dark)
+        .preferredColorScheme(.light)
         //.preferredColorScheme(.light)
     }
 }
