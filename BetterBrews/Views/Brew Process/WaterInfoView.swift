@@ -18,19 +18,13 @@ struct WaterInfoView: View {
     var body: some View {
         UITableView.appearance().backgroundColor = UIColor(named: "tan")
         
-        let waterForm = waterTempForm
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Prepare Water")
-        
-        return waterForm
-    }
-    
-    var waterTempForm: some View {
-        ZStack {
-            Color("lightTan")
-                .ignoresSafeArea()
-            NavigationLink("Time and Rating Selection", destination: RatingView(showBrewStack: $showBrewStack, newBrew: newBrew), isActive: $showRatingView)
-            VStack {
+        return
+            ZStack {
+                Color("lightTan")
+                    .ignoresSafeArea()
+                NavigationLink("Time and Rating Selection", destination: RatingView(showBrewStack: $showBrewStack, newBrew: newBrew), isActive: $showRatingView)
+                    .opacity(0)
+                    .background(Color("lightTan"))
                 Form {
                     Section(header: Text("Water Temperature").foregroundColor(Color("black"))) {
                         TextField("Temperature", text: $newBrew.brew.temperatureString)
@@ -63,9 +57,11 @@ struct WaterInfoView: View {
                     .listRowBackground(viewConstants.listRowBackground)
                 }
                 .foregroundColor(Color("black"))
+                .padding(.top)
+                .background(Color("tan"))
             }
-            .padding(.top)
-        }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Prepare Water")
     }
     
     var nextButton: some View {

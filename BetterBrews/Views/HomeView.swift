@@ -73,6 +73,7 @@ struct HomeView: View {
             .toolbar { ToolbarItem(placement: .principal) { toolbarTitle } }
             .navigationBarItems(leading: logIcon, trailing: settingsIcon)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     //MARK: - Toolbar
@@ -161,19 +162,27 @@ struct HomeView: View {
                     .isDetailLink(false)
                 }
                 HStack(spacing: viewConstants.cardSpacing) {
-                    ForEach(brewsToShow) { brew in
-                        brewDisplayCard(brew)
-                            .frame(width: viewConstants.cardWidth)
-                            .buttonStyle(FlatLinkStyle())
-                            .gesture(listSwipe)
-                            .transition(.slide)
-                            .animation(.spring(), value: displayedIndex)
-                            .onTapGesture {
-                                chosenBrew = brew
-                                showBrewProcess.toggle()
-                            }
+                    if(brewEquipment.brewEquipment.isEmpty) {
+                        Spacer()
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                        Spacer()
                     }
-                    .offset(x: calcOffset)
+                    else {
+                        ForEach(brewsToShow) { brew in
+                            brewDisplayCard(brew)
+                                .frame(width: viewConstants.cardWidth)
+                                .buttonStyle(FlatLinkStyle())
+                                .gesture(listSwipe)
+                                .transition(.slide)
+                                .animation(.spring(), value: displayedIndex)
+                                .onTapGesture {
+                                    chosenBrew = brew
+                                    showBrewProcess.toggle()
+                                }
+                        }
+                        .offset(x: calcOffset)
+                    }
                 }
             }
         }
@@ -221,27 +230,27 @@ struct HomeView: View {
                                 .foregroundColor(Color(.white))
                                 .font(.subheadline)
                         }
-                        VStack(alignment: .leading) {
-                            Text("Notes:")
-                                .font(.headline)
-                                .foregroundColor(Color("lightTan"))
-                            Text(brew.notes)
-                                .lineLimit(3)
-                                .multilineTextAlignment(.leading)
-                                .fixedSize(horizontal: false, vertical: true)
-                                .font(.subheadline)
-                                .padding(.leading)
-                                .foregroundColor(Color(.white))
-                        }
                         if(cardGeo.size.height >= 200) {
-                            HStack {
-                                Text("Average Rating:")
-                                    .foregroundColor(Color("lightTan"))
+                            VStack(alignment: .leading) {
+                                Text("Notes:")
                                     .font(.headline)
-                                Text(cardAverageRatingString(brew.name))
-                                    .foregroundColor(.white)
-                                
+                                    .foregroundColor(Color("lightTan"))
+                                Text(brew.notes)
+                                    .lineLimit(3)
+                                    .multilineTextAlignment(.leading)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .font(.subheadline)
+                                    .padding(.leading)
+                                    .foregroundColor(Color(.white))
                             }
+                        }
+                        HStack {
+                            Text("Average Rating:")
+                                .foregroundColor(Color("lightTan"))
+                                .font(.headline)
+                            Text(cardAverageRatingString(brew.name))
+                                .foregroundColor(.white)
+                            
                         }
                     }
                     Spacer(minLength: 0)
@@ -252,7 +261,8 @@ struct HomeView: View {
                             addFavorite(brew)
                         }
                 }
-                .padding(viewConstants.cardPadding)
+                .padding(.vertical, viewConstants.verticalCardPadding)
+                .padding(.horizontal, viewConstants.horizontalCardPadding)
                 .background(RoundedRectangle(cornerRadius: viewConstants.methodCardCornerRadius)
                                 .foregroundColor(AppStyle.titleColor))
                 .rotation3DEffect(rotationAngle(cardGeo), axis: (x:0, y: 10.0, z: 0))
@@ -356,9 +366,9 @@ struct HomeView: View {
                 VStack() {
                     ScrollView(.vertical) {
                         VStack(spacing: viewConstants.recentlyUsedSpacing) {
-                            ForEach(0..<5) { index in
-                                if(index < pastBrews.count) {
-                                    recentCard(pastBrews[index])
+                            ForEach(pastBrews) { brew in
+                                if(pastBrews.firstIndex(of: brew) ?? 6 < 5) {
+                                    recentCard(brew)
                                 }
                             }
                         }
@@ -368,6 +378,7 @@ struct HomeView: View {
         }
         .padding([.top, .horizontal])
         .background(Color("lightTan"))
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     struct recentCard: View {
@@ -423,16 +434,17 @@ struct HomeView: View {
         static let settingsIconName = "gear"
         
         /* Card Carousel */
-        static let cardPadding: CGFloat = 20
+        static let horizontalCardPadding: CGFloat = 20
+        static let verticalCardPadding: CGFloat = 17
         static let cardWidthScale: CGFloat = 1/2.5
         static let cardHeightScale: CGFloat = 1/2.7
         static let minDrag: CGFloat = 15
-        static let cardSpacing: CGFloat = 0
+        static let cardSpacing: CGFloat = 5
         static let cardMinSwipe: CGFloat = 60
         static let hiddenCardWidth: CGFloat = 65
         static let methodCardCornerRadius: CGFloat  = 40
         static let cardWidth: CGFloat = UIScreen.main.bounds.width - (viewConstants.hiddenCardWidth*2) - (viewConstants.cardSpacing*2)
-        static let spacingHeightFactor: CGFloat = 45
+        static let spacingHeightFactor: CGFloat = 60
         
         /* Menu Bar */
         static let menuBarPadding: CGFloat = 10

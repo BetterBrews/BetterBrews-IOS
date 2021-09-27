@@ -49,34 +49,32 @@ struct LogView: View {
                     emptyBrewList
                 }
                 else {
-                    VStack {
-                        ScrollView {
+                    ScrollView {
+                        ForEach(pastBrewsToShow) { brew in
                             VStack(alignment: .leading, spacing: 0) {
-                                ForEach(pastBrewsToShow) { brew in
-                                    listDateHeader(brew.date)
-                                    HStack(alignment: .center) {
-                                        if(editing) {
-                                            deleteButton(brew)
-                                        }
-                                        logCard(brew)
-                                            .padding()
+                                listDateHeader(brew.date)
+                                HStack(alignment: .center) {
+                                    if(editing) {
+                                        deleteButton(brew)
                                     }
-                                    .transition(.slide)
-                                    if (brew != pastBrewsToShow.last) {
-                                        Divider()
-                                            .background(Color("black"))
-                                            .padding(.horizontal)
-                                            
-                                    }
+                                    logCard(brew)
+                                        .padding()
+                                }
+                                .transition(.slide)
+                                if (brew != pastBrewsToShow.last) {
+                                    Divider()
+                                        .background(Color("black"))
+                                        .padding(.horizontal)
                                 }
                             }
-                            .animation(.easeInOut)
                         }
+                        .animation(.easeInOut)
                     }
                 }
             }
             .background(Color("tan").ignoresSafeArea())
             .navigationBarTitle("Brew Log")
+            .navigationBarTitleDisplayMode(.large)
     }
     
     func deleteButton(_ brew: PastBrew) -> some View {
@@ -115,11 +113,14 @@ struct LogView: View {
             filterMenu
             Spacer()
             Button(editing ? "Done" : "Edit") {
-                self.editing.toggle()
+                if(pastBrewsToShow.count != 0) {
+                    self.editing.toggle()
+                }
             }
             .foregroundColor(Color("lightBrown"))
         }
-        .padding()
+        .padding(.horizontal)
+        .padding(.vertical, 7)
         .background(Color("lightTan").ignoresSafeArea())
     }
     

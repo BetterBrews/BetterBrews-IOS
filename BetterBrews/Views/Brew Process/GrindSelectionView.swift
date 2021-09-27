@@ -16,10 +16,12 @@ struct GrindSelectionView: View {
     var reviewMode = false
     
     var body: some View {
-        ZStack {
-            Color("lightTan")
-                .ignoresSafeArea()
-            VStack {
+        UITableView.appearance().backgroundColor = UIColor(named: "tan")
+        
+        return
+            ZStack {
+                Color("lightTan")
+                    .ignoresSafeArea()
                 NavigationLink(destination: WaterInfoView(showBrewStack: $showBrewStack, newBrew: newBrew),isActive: $showWaterView) {}
                     .opacity(0)
                     .background(Color("lightTan"))
@@ -30,14 +32,12 @@ struct GrindSelectionView: View {
                         nextButton
                     }
                 }
-                .background(Color("tan"))
                 .padding(.top)
+                .background(Color("tan"))
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationTitle("Prepare Beans")
-                Spacer()
+                .edgesIgnoringSafeArea(.bottom)
             }
-            .edgesIgnoringSafeArea(.bottom)
-        }
     }
     
     //MARK: - Grind Size Picker

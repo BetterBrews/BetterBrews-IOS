@@ -37,6 +37,7 @@ struct BetterBrewsApp: App {
         
         //Form Appearance
         UITableView.appearance().backgroundColor = UIColor(named: "tan")
-        UITableView.appearance().separatorColor = UIColor(.secondary)
+        UITableViewCell.appearance().backgroundColor = UIColor(named: "tan")
+        UITableView.appearance().separatorColor = UIColor(named: "lightTan")
     }
 }

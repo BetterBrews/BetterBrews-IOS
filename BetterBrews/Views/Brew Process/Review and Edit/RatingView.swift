@@ -33,10 +33,16 @@ struct RatingView: View {
                 }
                 VStack {
                     ratingPicker
-                    logEntryReview(newBrew)
+                    if(editingTime && (UIScreen.main.bounds.height < 700)) {
+                        Spacer()
+                    }
+                    else {
+                        logEntryReview(newBrew)
+                    }
                 }
                 .background(AppStyle.backgroundColor)
                 .navigationBarTitleDisplayMode(.inline)
+                .navigationBarBackButtonHidden(editing)
                 .navigationTitle("Review")
                 .toolbar(content: {
                     Button(action: finish) {
@@ -88,7 +94,7 @@ struct RatingView: View {
                         editingTime.toggle()
                     }
                 }
-                    .foregroundColor(Color("lightBrown"))
+                .foregroundColor(Color("lightBrown"))
             }
             .padding([.top, .horizontal])
             HStack(spacing: 0) {
@@ -130,7 +136,7 @@ struct RatingView: View {
         }
         private var beanNameString: String {
             //Test and limit text length if necessary
-            newBrew.brew.bean!.roaster! + " " + newBrew.brew.bean!.name!
+            (newBrew.brew.bean?.roaster ?? "Roaster") + " " + (newBrew.brew.bean?.name ?? "Bean")
         }
         
         //State for editing views
@@ -216,7 +222,7 @@ struct RatingView: View {
         }
     }
     
-    
+    //MARK: - Rating Picker
     var ratingPicker: some View {
         VStack {
             HStack {
@@ -227,8 +233,8 @@ struct RatingView: View {
                 Spacer()
             }
             Picker(selection: $newBrew.brew.rating, label: Text("Cup Rating"), content: {
-                ForEach(1..<11) { score in
-                    Text(String(score)).tag(Int(score))
+                ForEach(1..<11, id: \.self) {
+                    Text(String($0))
                 }
             })
             .padding(viewConstants.pickerPadding)
@@ -282,7 +288,7 @@ struct RatingView: View {
     
     
     struct viewConstants {
-        static let pickerPadding: CGFloat = 2
+        static let pickerPadding: CGFloat = 0
         static let rowCornerRadius: CGFloat = 10
     }
     
@@ -297,6 +303,6 @@ struct RatingView_Previews: PreviewProvider {
             RatingView(showBrewStack: .constant(true), newBrew: newBrew)
         }
         .preferredColorScheme(.dark)
-        .previewDevice("iPhone 12 Pro Max")
+        .previewDevice("iPhone 8")
     }
 }
