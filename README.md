@@ -1,7 +1,7 @@
 # BetterBrew
-Coffee Logging app for better home brewing
+Coffee logging app for better home brewing
 
 Beta Download Available at:
 https://testflight.apple.com/join/04KDmnkC
 
-<img src="https://user-images.githubusercontent.com/68760990/133310412-4554ffa7-92ba-40f7-9aa9-3ac449ae070d.PNG" width="100"> <img src="https://user-images.githubusercontent.com/68760990/133310421-0d9093c0-4d48-47ad-9e2b-4a1e6d286ee3.PNG" width="100"> <img src="https://user-images.githubusercontent.com/68760990/133310428-8dd9507d-2b29-4d51-886e-ea969e9369c1.PNG" width="100">
+<img src="https://user-images.githubusercontent.com/68760990/135134121-35d85d09-6301-45f9-8f76-f037d6978a7f.png" width="100"> <img src="https://user-images.githubusercontent.com/68760990/135134132-a7a00e45-eda4-43d3-9689-867e764513b4.png" width="100"> <img src="https://user-images.githubusercontent.com/68760990/135134139-9cde39e5-efd6-49d3-ba54-0dc98df78802.png" width="100">
