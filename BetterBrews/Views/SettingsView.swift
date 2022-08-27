@@ -66,7 +66,7 @@ struct SettingsView: View {
                 HStack {
                     Text("Version")
                     Spacer()
-                    Text("1.0.1")
+                    Text(Bundle.main.releaseVersionNumber ?? "N/A")
                 }
             }
             .foregroundColor(.white)
@@ -107,6 +107,15 @@ struct SettingsView: View {
         static let headerColor = Color("black")
         static let listRowBackground = Color("brown")
         static let linkColor = Color("gold")
+    }
+}
+
+extension Bundle {
+    var releaseVersionNumber: String? {
+        return infoDictionary?["CFBundleShortVersionString"] as? String
+    }
+    var buildVersionNumber: String? {
+        return infoDictionary?["CFBundleVersion"] as? String
     }
 }
 

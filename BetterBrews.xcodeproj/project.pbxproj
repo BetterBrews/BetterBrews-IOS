@@ -251,6 +251,7 @@
 				53574BD326C43C7700F0A1A7 /* Sources */,
 				53574BD426C43C7700F0A1A7 /* Frameworks */,
 				53574BD526C43C7700F0A1A7 /* Resources */,
+				5346CEAC28B9EDBE007B80CC /* Update Version Info */,
 			);
 			buildRules = (
 			);
@@ -306,6 +307,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5346CEAC28B9EDBE007B80CC /* Update Version Info */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Update Version Info";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/scripts/gen_version.sh\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		53574BD326C43C7700F0A1A7 /* Sources */ = {
@@ -468,6 +490,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "Build and Version set by Build Phase";
 				DEVELOPMENT_ASSET_PATHS = "\"BetterBrews/Preview Content\"";
 				DEVELOPMENT_TEAM = W48VP2W946;
 				ENABLE_PREVIEWS = YES;
@@ -477,7 +500,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 0.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.colbyhaskell.BetterBrew;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -491,6 +514,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "Build and Version set by Build Phase";
 				DEVELOPMENT_ASSET_PATHS = "\"BetterBrews/Preview Content\"";
 				DEVELOPMENT_TEAM = W48VP2W946;
 				ENABLE_PREVIEWS = YES;
@@ -500,7 +524,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 0.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.colbyhaskell.BetterBrews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
