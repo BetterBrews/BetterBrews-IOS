@@ -122,7 +122,7 @@ enum GrindSize: String {
 struct GrindSelectionView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            GrindSelectionView(showBrewStack: .constant(true), newBrew: NewBrew(BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", estTime: 6, filters: ["Immersion"])))
+            GrindSelectionView(showBrewStack: .constant(true), newBrew: NewBrew("Aeropress"))
         }
     }
 }

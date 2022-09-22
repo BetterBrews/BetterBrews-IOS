@@ -226,7 +226,7 @@ struct BeanSelectionView: View {
 struct BeanSelectionView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            BeanSelectionView(showBrewStack: .constant(true), newBrew: NewBrew(BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", estTime: 6, filters: ["Immersion"])))
+            BeanSelectionView(showBrewStack: .constant(true), newBrew: NewBrew("Aeropress"))
                 .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         }
     }

@@ -1,6 +1,6 @@
 //
 //  PastBrew.swift
-//  BetterBrews
+//  This is the brew data type stored in CoreData/CloudKit
 //
 //  Created by Colby Haskell on 8/20/21.
 //

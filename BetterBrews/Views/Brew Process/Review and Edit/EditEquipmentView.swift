@@ -129,7 +129,7 @@ struct EditEquipmentView: View {
 struct EditEquipmentView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            EditEquipmentView(newBrew: NewBrew(BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", estTime: 6, filters: ["Immersion"])))
+            EditEquipmentView(newBrew: NewBrew("Aeropress"))
                 .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         }
     }

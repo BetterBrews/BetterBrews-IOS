@@ -11,12 +11,12 @@ import CoreData
 struct BrewsManager {
     private static var viewContext = PersistenceController.viewContext
     
-    //Create a new brew with date as current date
+    // Create a new brew with date as current date
     static func saveBrew(_ brew: Brew) {
         let newBrew = PastBrew(context: viewContext)
         newBrew.date = Date()
         
-        //Connect Bean to Brew
+        // Connect Bean to Brew
         let beanRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Bean")
         beanRequest.predicate = NSPredicate(format: "name CONTAINS %@", brew.bean!.name!)
         do {
@@ -31,35 +31,35 @@ struct BrewsManager {
             newBrew.bean!.name = brew.bean!.name
         }
         
-        //
+        // Equipment Name
         newBrew.equipment = brew.equipmentName
-        //Coffee
+        // Coffee
         newBrew.coffeeAmount = brew.coffeeAmount!
         newBrew.grind = brew.grindSizeString!
-        //Water
+        // Water
         newBrew.waterTemp = brew.waterTemp!
         newBrew.waterAmount = brew.waterVolume!
-        //Brew Time
+        // Brew Time
         newBrew.brewTime = Double(brew.brewTime!)
-        //Units
+        // Units
         newBrew.coffeeUnit = brew.coffeeUnit
         newBrew.waterVolumeUnit = brew.waterVolumeUnit
         newBrew.temperatureUnit = brew.temperatureUnit
-        //Rating
+        // Rating
         newBrew.rating = Int64(brew.rating)
         
         PersistenceController.saveContext()
         print("Brew Created and Saved")
     }
     
-    //Delete specified past brew
+    // Delete specified past brew
     static func deleteBrew(_ brew: PastBrew) {
         viewContext.delete(brew)
         PersistenceController.saveContext()
         print("Past brew deleted")
     }
     
-    //Clear all Past Brews
+    // Clear all Past Brews
     static func clearLog() {
         let entity = "PastBrew"
         
@@ -87,19 +87,19 @@ struct BrewsManager {
         }
         
         pastBrew.equipment = brew.equipmentName
-        //Coffee
+        // Coffee
         pastBrew.coffeeAmount = brew.coffeeAmount!
         pastBrew.grind = brew.grindSizeString!
-        //Water
+        // Water
         pastBrew.waterTemp = brew.waterTemp!
         pastBrew.waterAmount = brew.waterVolume!
-        //Brew Time
+        // Brew Time
         pastBrew.brewTime = Double(brew.brewTime!)
-        //Units
+        // Units
         pastBrew.coffeeUnit = brew.coffeeUnit
         pastBrew.waterVolumeUnit = brew.waterVolumeUnit
         pastBrew.temperatureUnit = brew.temperatureUnit
-        //Rating
+        // Rating
         pastBrew.rating = Int64(brew.rating)
         
         PersistenceController.saveContext()

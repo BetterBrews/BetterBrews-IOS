@@ -1,6 +1,6 @@
 //
 //  NewBrew.swift
-//  BetterBrews
+//  View Model
 //
 //  Created by Colby Haskell on 8/17/21.
 //
@@ -45,8 +45,8 @@ class NewBrew: ObservableObject {
         }
     }
     
-    init(_ method: BrewEquipment) {
-        brew = Brew(method)
+    init(_ methodName: String) {
+        brew = Brew(methodName)
     }
     
     func save() {
@@ -72,7 +72,7 @@ class NewBrew: ObservableObject {
         let bean = Bean(context: PersistenceController.preview.container.viewContext)
         bean.name = beanName
         
-        brew = Brew(method)
+        brew = Brew(method.name)
         brew.bean = bean
         brew.grindSize = GrindSize(rawValue: grind)!
         brew.brewTime = brewTime

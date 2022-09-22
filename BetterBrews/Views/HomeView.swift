@@ -156,7 +156,7 @@ struct HomeView: View {
         var carousel: some View {
             GeometryReader { geo in
                 HStack {
-                    NavigationLink(destination: BeanSelectionView(showBrewStack: $showBrewProcess, newBrew: NewBrew(chosenBrew)).environmentObject(globalSettings), isActive: $showBrewProcess) {
+                    NavigationLink(destination: BeanSelectionView(showBrewStack: $showBrewProcess, newBrew: NewBrew(chosenBrew.name)).environmentObject(globalSettings), isActive: $showBrewProcess) {
                             EmptyView()
                     }
                     .isDetailLink(false)

@@ -7,15 +7,14 @@
 
 import Foundation
 
-//
-//
-//TODO: Add Brew Time
 struct BrewEquipment: Identifiable, Codable, Equatable {
     let id: Int
     let name: String
     let type: String
     let notes: String
-    let estTime: Int //Time in minutes for typical brew
+    let estTime: Int // [mins]
     let filters: [String]
     var isFavorite: Bool = false
 }
+
+//TODO: Add Public API Functions

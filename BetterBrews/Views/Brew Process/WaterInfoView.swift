@@ -102,7 +102,7 @@ struct WaterInfoView: View {
 struct WaterTempView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            WaterInfoView(showBrewStack: .constant(true), newBrew: NewBrew(BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", estTime: 6, filters: ["Immersion"])))
+            WaterInfoView(showBrewStack: .constant(true), newBrew: NewBrew("Aeropress"))
         }
     }
 }

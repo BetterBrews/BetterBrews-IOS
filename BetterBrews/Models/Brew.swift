@@ -10,10 +10,10 @@
 
 import Foundation
 
-struct Brew {
+class Brew {
     var equipmentName: String
     var bean: Bean?
-    var brewTime: Double?
+    var brewTime: Double?                                               // [mins]
     var coffeeUnit: CoffeeUnit = loadDefaultCoffeeUnit()
     var temperatureUnit: TemperatureUnit = loadDefaultTemperatureUnit()
     var waterVolumeUnit: WaterVolumeUnit = loadDefaultWaterVolumeUnit()
@@ -43,10 +43,7 @@ struct Brew {
         grindSize.rawValue
     }
     
-    init(_ method: BrewEquipment) {
-        equipmentName = method.name
-    }
-    
+    // Copy pastBrew data into Brew data structure
     init(pastBrew: PastBrew) {
         equipmentName = pastBrew.equipment!
         bean = pastBrew.bean
@@ -60,7 +57,6 @@ struct Brew {
         temperatureString = String(pastBrew.waterTemp)
         coffeeAmountString = String(pastBrew.coffeeAmount)
         waterVolumeString = String(pastBrew.waterAmount)
-        
     }
     
     init(_ method: String) {
