@@ -208,7 +208,7 @@ struct LogView: View {
 
 
 struct LogView_Previews: PreviewProvider {
-    static let brewList = BrewEquipmentList([BrewEquipment(id: 0, name: "Aero", type: "good", notes: "good", estTime: 5, filters: ["Immersion"])])
+    static let brewList = BrewEquipmentList([BrewEquipment(id: 0, name: "Aero", type: "good", notes: "good", time: 5, filters: ["Immersion"])])
     static let globalSettings = GlobalSettings()
     
     static var previews: some View {

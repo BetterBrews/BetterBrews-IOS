@@ -15,7 +15,7 @@ struct BrewEquipment: Identifiable, Codable, Equatable {
     let name: String
     let type: String
     let notes: String
-    let estTime: Int //Time in minutes for typical brew
+    let time: Int //Time in minutes for typical brew
     let filters: [String]
     var isFavorite: Bool = false
 }

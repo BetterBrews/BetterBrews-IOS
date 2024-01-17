@@ -19,7 +19,7 @@ struct HomeView: View {
     @State private var menuExpanded = false
     @State private var showAddBrewView = false
     @State private var showBrewProcess = false
-    @State private var chosenBrew: BrewEquipment = BrewEquipment(id: 0, name: "Brew", type: "Immersion", notes: "Good", estTime: 6, filters: ["Immersion"])
+    @State private var chosenBrew: BrewEquipment = BrewEquipment(id: 0, name: "Brew", type: "Immersion", notes: "Good", time: 6, filters: ["Immersion"])
     
     @FetchRequest private var pastBrews: FetchedResults<PastBrew>
     
@@ -170,7 +170,7 @@ struct HomeView: View {
                     }
                     else {
                         ForEach(brewsToShow) { brew in
-                            brewDisplayCard(brew)
+                            BrewCard(brewName: brew.name, brewType: brew.type, brewTime: brew.time, brewNotes: brew.notes, isFavorite: true, avgRating: 4.3, onFavoriteClick: {})
                                 .frame(width: viewConstants.cardWidth)
                                 .buttonStyle(FlatLinkStyle())
                                 .gesture(listSwipe)
@@ -200,76 +200,6 @@ struct HomeView: View {
         }
         
         return carousel
-    }
-    
-    func brewDisplayCard(_ brew: BrewEquipment) -> some View {
-        VStack {
-            GeometryReader { cardGeo in
-                VStack(alignment: .leading, spacing: 0) {
-                    VStack(alignment: .leading, spacing: cardGeo.size.height/viewConstants.spacingHeightFactor) {
-                        HStack {
-                            Text(brew.name)
-                                .font(.title)
-                                .bold()
-                                .foregroundColor(Color("gold"))
-                            Spacer()
-                        }
-                        HStack {
-                            Text("Type:")
-                                .foregroundColor(Color("lightTan"))
-                                .font(.headline)
-                            Text(brew.type)
-                                .foregroundColor(Color(.white))
-                                .font(.subheadline)
-                        }
-                        HStack {
-                            Text("Est. Time:")
-                                .font(.headline)
-                                .foregroundColor(Color("lightTan"))
-                            Text(String(format: "%1d:00", brew.estTime))
-                                .foregroundColor(Color(.white))
-                                .font(.subheadline)
-                        }
-                        if(cardGeo.size.height >= 200) {
-                            VStack(alignment: .leading) {
-                                Text("Notes:")
-                                    .font(.headline)
-                                    .foregroundColor(Color("lightTan"))
-                                Text(brew.notes)
-                                    .lineLimit(3)
-                                    .multilineTextAlignment(.leading)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                    .font(.subheadline)
-                                    .padding(.leading)
-                                    .foregroundColor(Color(.white))
-                            }
-                        }
-                        HStack {
-                            Text("Average Rating:")
-                                .foregroundColor(Color("lightTan"))
-                                .font(.headline)
-                            Text(cardAverageRatingString(brew.name))
-                                .foregroundColor(.white)
-                            
-                        }
-                    }
-                    Spacer(minLength: 0)
-                    Image(systemName: brew.isFavorite ? "star.fill" : "star")
-                        .foregroundColor(Color("gold"))
-                        .font(.headline)
-                        .onTapGesture {
-                            addFavorite(brew)
-                        }
-                }
-                .padding(.vertical, viewConstants.verticalCardPadding)
-                .padding(.horizontal, viewConstants.horizontalCardPadding)
-                .background(RoundedRectangle(cornerRadius: viewConstants.methodCardCornerRadius)
-                                .foregroundColor(AppStyle.titleColor))
-                .rotation3DEffect(rotationAngle(cardGeo), axis: (x:0, y: 10.0, z: 0))
-            }
-            
-            
-        }
     }
     
     private func cardAverageRatingString(_ equipmentName: String) -> String {
@@ -469,7 +399,10 @@ struct HomeView: View {
 
 struct ContentView_Previews: PreviewProvider {
     
-    static let equipment = BrewEquipmentList([BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", estTime: 5, filters: ["Immersion"], isFavorite: true), BrewEquipment(id: 1, name: "French Press", type: "Immersion", notes: "good", estTime: 5, filters: ["Immersion"], isFavorite: true), BrewEquipment(id: 2, name: "Moka Pot", type: "Immersion", notes: "good", estTime: 5, filters: ["Espresso"], isFavorite: true)])
+    static let equipment = BrewEquipmentList(
+        [BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "good", time: 5, filters: ["Immersion"], isFavorite: true),
+         BrewEquipment(id: 1, name: "French Press", type: "Immersion", notes: "good", time: 5, filters: ["Immersion"], isFavorite: true),
+         BrewEquipment(id: 2, name: "Moka Pot", type: "Immersion", notes: "good", time: 5, filters: ["Espresso"], isFavorite: true)])
 
     static var previews: some View {
         HomeView()

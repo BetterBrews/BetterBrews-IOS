@@ -296,7 +296,7 @@ struct RatingView: View {
 
 
 struct RatingView_Previews: PreviewProvider {
-    static let newBrew = NewBrew(method: BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "Good", estTime: 6, filters: ["Immersion"]), beanName: "44 North", grind: "Coarse", brewTime: 5.30, waterTemp: 5, waterAmount: 5.5, coffeeAmount: 5.5)
+    static let newBrew = NewBrew(method: BrewEquipment(id: 0, name: "Aeropress", type: "Immersion", notes: "Good", time: 6, filters: ["Immersion"]), beanName: "44 North", grind: "Coarse", brewTime: 5.30, waterTemp: 5, waterAmount: 5.5, coffeeAmount: 5.5)
     
     static var previews: some View {
         NavigationView {
