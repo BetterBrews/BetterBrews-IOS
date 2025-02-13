@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,12 +12,19 @@
 		531FC9EB26CBF39300386EA7 /* NewBrew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FC9EA26CBF39300386EA7 /* NewBrew.swift */; };
 		531FC9ED26CC14E600386EA7 /* AddBeanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FC9EC26CC14E600386EA7 /* AddBeanView.swift */; };
 		531FC9F026CD9A9000386EA7 /* BrewTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FC9EF26CD9A9000386EA7 /* BrewTimer.swift */; };
-		531FC9F226D0172900386EA7 /* UtilityViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FC9F126D0172900386EA7 /* UtilityViews.swift */; };
+		531FC9F226D0172900386EA7 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FC9F126D0172900386EA7 /* RoundedButton.swift */; };
 		531FC9F426D03C9900386EA7 /* UtilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FC9F326D03C9900386EA7 /* UtilityExtensions.swift */; };
 		531FC9F626D085CA00386EA7 /* PastBrew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FC9F526D085CA00386EA7 /* PastBrew.swift */; };
 		53255A0526D0C0AD001F65C5 /* GlobalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53255A0426D0C0AD001F65C5 /* GlobalSettings.swift */; };
-		53255A0726D18E87001F65C5 /* Rubik.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53255A0626D18E87001F65C5 /* Rubik.ttf */; };
 		5330FB7726FF8628005AB075 /* EditEquipmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5330FB7626FF8628005AB075 /* EditEquipmentView.swift */; };
+		533BF2C32CDE902E00D6EED7 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2C22CDE902E00D6EED7 /* Type.swift */; };
+		533BF2C62CDE907400D6EED7 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2C52CDE907400D6EED7 /* Theme.swift */; };
+		533BF2C82CDE910D00D6EED7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2C72CDE910D00D6EED7 /* Color.swift */; };
+		533BF2CA2CDE912C00D6EED7 /* Dimen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2C92CDE912C00D6EED7 /* Dimen.swift */; };
+		533BF2CC2CDE928300D6EED7 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 533BF2CB2CDE928300D6EED7 /* Montserrat-Regular.ttf */; };
+		533BF2CE2CDE928E00D6EED7 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 533BF2CD2CDE928E00D6EED7 /* Montserrat-Bold.ttf */; };
+		533BF2D02CDE929600D6EED7 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 533BF2CF2CDE929600D6EED7 /* Montserrat-SemiBold.ttf */; };
+		533BF2D42CDE931500D6EED7 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533BF2D32CDE931500D6EED7 /* MenuBar.swift */; };
 		534DE2132B5771F300044F06 /* BrewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534DE2122B5771F300044F06 /* BrewCard.swift */; };
 		53574BDB26C43C7700F0A1A7 /* BetterBrewsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53574BDA26C43C7700F0A1A7 /* BetterBrewsApp.swift */; };
 		53574BDD26C43C7700F0A1A7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53574BDC26C43C7700F0A1A7 /* HomeView.swift */; };
@@ -48,12 +55,19 @@
 		531FC9EA26CBF39300386EA7 /* NewBrew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBrew.swift; sourceTree = "<group>"; };
 		531FC9EC26CC14E600386EA7 /* AddBeanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBeanView.swift; sourceTree = "<group>"; };
 		531FC9EF26CD9A9000386EA7 /* BrewTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewTimer.swift; sourceTree = "<group>"; };
-		531FC9F126D0172900386EA7 /* UtilityViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityViews.swift; sourceTree = "<group>"; };
+		531FC9F126D0172900386EA7 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		531FC9F326D03C9900386EA7 /* UtilityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityExtensions.swift; sourceTree = "<group>"; };
 		531FC9F526D085CA00386EA7 /* PastBrew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastBrew.swift; sourceTree = "<group>"; };
 		53255A0426D0C0AD001F65C5 /* GlobalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSettings.swift; sourceTree = "<group>"; };
-		53255A0626D18E87001F65C5 /* Rubik.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rubik.ttf; sourceTree = "<group>"; };
 		5330FB7626FF8628005AB075 /* EditEquipmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditEquipmentView.swift; sourceTree = "<group>"; };
+		533BF2C22CDE902E00D6EED7 /* Type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Type.swift; path = BetterBrews/styles/Type.swift; sourceTree = SOURCE_ROOT; };
+		533BF2C52CDE907400D6EED7 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Theme.swift; path = BetterBrews/styles/Theme.swift; sourceTree = SOURCE_ROOT; };
+		533BF2C72CDE910D00D6EED7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Color.swift; path = BetterBrews/styles/Color.swift; sourceTree = SOURCE_ROOT; };
+		533BF2C92CDE912C00D6EED7 /* Dimen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dimen.swift; sourceTree = "<group>"; };
+		533BF2CB2CDE928300D6EED7 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		533BF2CD2CDE928E00D6EED7 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		533BF2CF2CDE929600D6EED7 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
+		533BF2D32CDE931500D6EED7 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		534DE2122B5771F300044F06 /* BrewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrewCard.swift; sourceTree = "<group>"; };
 		53574BD726C43C7700F0A1A7 /* BetterBrews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetterBrews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53574BDA26C43C7700F0A1A7 /* BetterBrewsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterBrewsApp.swift; sourceTree = "<group>"; };
@@ -103,7 +117,9 @@
 		53255A0826D18E8C001F65C5 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				53255A0626D18E87001F65C5 /* Rubik.ttf */,
+				533BF2CB2CDE928300D6EED7 /* Montserrat-Regular.ttf */,
+				533BF2CD2CDE928E00D6EED7 /* Montserrat-Bold.ttf */,
+				533BF2CF2CDE929600D6EED7 /* Montserrat-SemiBold.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -115,6 +131,26 @@
 				530A7D5026E2E6910010CA09 /* RatingView.swift */,
 			);
 			path = "Review and Edit";
+			sourceTree = "<group>";
+		};
+		533BF2BD2CDE8D3800D6EED7 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				533BF2D32CDE931500D6EED7 /* MenuBar.swift */,
+				531FC9F126D0172900386EA7 /* RoundedButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		533BF2C42CDE903C00D6EED7 /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				533BF2C92CDE912C00D6EED7 /* Dimen.swift */,
+				533BF2C72CDE910D00D6EED7 /* Color.swift */,
+				533BF2C52CDE907400D6EED7 /* Theme.swift */,
+				533BF2C22CDE902E00D6EED7 /* Type.swift */,
+			);
+			path = Styles;
 			sourceTree = "<group>";
 		};
 		53574BCE26C43C7700F0A1A7 = {
@@ -137,9 +173,11 @@
 			isa = PBXGroup;
 			children = (
 				53574BDA26C43C7700F0A1A7 /* BetterBrewsApp.swift */,
+				533BF2BD2CDE8D3800D6EED7 /* Components */,
 				53255A0826D18E8C001F65C5 /* Fonts */,
 				5384EF2D26C5B4F100D074B6 /* Models */,
 				53574BEE26C44D0500F0A1A7 /* Views */,
+				533BF2C42CDE903C00D6EED7 /* Styles */,
 				538BE45126C8102400BC9AAC /* ViewModels */,
 				53948A7D26CAB66F00181B7B /* Utility */,
 				5384EF2A26C5B4DF00D074B6 /* Resources */,
@@ -227,7 +265,6 @@
 				538BE45A26C8111000BC9AAC /* Persistance */,
 				531FC9E826CBE4FA00386EA7 /* AppStyle.swift */,
 				53929BF126ED5428008FA743 /* AppUnits.swift */,
-				531FC9F126D0172900386EA7 /* UtilityViews.swift */,
 				531FC9F326D03C9900386EA7 /* UtilityExtensions.swift */,
 			);
 			path = Utility;
@@ -254,7 +291,6 @@
 				53574BD326C43C7700F0A1A7 /* Sources */,
 				53574BD426C43C7700F0A1A7 /* Frameworks */,
 				53574BD526C43C7700F0A1A7 /* Resources */,
-				5346CEAC28B9EDBE007B80CC /* Update Version Info */,
 			);
 			buildRules = (
 			);
@@ -271,8 +307,9 @@
 		53574BCF26C43C7700F0A1A7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					53574BD626C43C7700F0A1A7 = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -302,35 +339,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				533BF2D02CDE929600D6EED7 /* Montserrat-SemiBold.ttf in Resources */,
+				533BF2CE2CDE928E00D6EED7 /* Montserrat-Bold.ttf in Resources */,
+				533BF2CC2CDE928300D6EED7 /* Montserrat-Regular.ttf in Resources */,
 				53574BE226C43C7A00F0A1A7 /* Preview Assets.xcassets in Resources */,
 				53574BDF26C43C7A00F0A1A7 /* Assets.xcassets in Resources */,
 				5391144226C6D50C009BCE06 /* brews.data in Resources */,
-				53255A0726D18E87001F65C5 /* Rubik.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		5346CEAC28B9EDBE007B80CC /* Update Version Info */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Update Version Info";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "$SRCROOT/scripts/gen_version.sh\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		53574BD326C43C7700F0A1A7 /* Sources */ = {
@@ -342,23 +360,28 @@
 				5384EF2F26C5B64600D074B6 /* BrewEquipmentList.swift in Sources */,
 				530A7D5126E2E6910010CA09 /* RatingView.swift in Sources */,
 				531FC9E926CBE4FA00386EA7 /* AppStyle.swift in Sources */,
+				533BF2C82CDE910D00D6EED7 /* Color.swift in Sources */,
+				533BF2C32CDE902E00D6EED7 /* Type.swift in Sources */,
 				53929BF226ED5428008FA743 /* AppUnits.swift in Sources */,
 				53574BE426C43C7A00F0A1A7 /* Persistence.swift in Sources */,
 				53DF66D426C4BBA2001EF4EC /* BeanSelectionView.swift in Sources */,
 				5384EF2C26C5B4EE00D074B6 /* BrewEquipment.swift in Sources */,
+				533BF2D42CDE931500D6EED7 /* MenuBar.swift in Sources */,
 				53DF66D826C4BBC3001EF4EC /* WaterInfoView.swift in Sources */,
 				53574BE726C43C7A00F0A1A7 /* BetterBrews.xcdatamodeld in Sources */,
 				538BE45C26C82EC600BC9AAC /* SearchBar.swift in Sources */,
 				534DE2132B5771F300044F06 /* BrewCard.swift in Sources */,
 				531FC9ED26CC14E600386EA7 /* AddBeanView.swift in Sources */,
 				538BE45F26C849EE00BC9AAC /* Bean.swift in Sources */,
+				533BF2C62CDE907400D6EED7 /* Theme.swift in Sources */,
 				53948A8926CAD96200181B7B /* BrewsManager.swift in Sources */,
+				533BF2CA2CDE912C00D6EED7 /* Dimen.swift in Sources */,
 				53255A0526D0C0AD001F65C5 /* GlobalSettings.swift in Sources */,
 				5384EF3126C616A300D074B6 /* AddBrewView.swift in Sources */,
 				531FC9F426D03C9900386EA7 /* UtilityExtensions.swift in Sources */,
 				531FC9F626D085CA00386EA7 /* PastBrew.swift in Sources */,
 				53574BDD26C43C7700F0A1A7 /* HomeView.swift in Sources */,
-				531FC9F226D0172900386EA7 /* UtilityViews.swift in Sources */,
+				531FC9F226D0172900386EA7 /* RoundedButton.swift in Sources */,
 				53DF66D226C45A08001EF4EC /* SettingsView.swift in Sources */,
 				53948A8726CABCF300181B7B /* Brew.swift in Sources */,
 				53DF66D026C45A02001EF4EC /* LogView.swift in Sources */,
@@ -409,6 +432,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -470,6 +494,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -499,7 +524,7 @@
 				DEVELOPMENT_TEAM = W48VP2W946;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BetterBrews/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -523,7 +548,7 @@
 				DEVELOPMENT_TEAM = W48VP2W946;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BetterBrews/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -14,10 +14,9 @@ struct HomeView: View {
     @EnvironmentObject var brewEquipment: BrewEquipmentList
     
     @GestureState private var dragAmount = CGFloat.zero
-    @State private var displayedIndex = 0
     @State private var menuFilter = MenuFilter.showAll
-    @State private var menuExpanded = false
-    @State private var showAddBrewView = false
+    @State private var displayedIndex = 0
+    @State private var isShowingAddBrewView = false
     @State private var showBrewProcess = false
     @State private var chosenBrew: BrewEquipment = BrewEquipment(id: 0, name: "Brew", type: "Immersion", notes: "Good", time: 6, filters: ["Immersion"])
     
@@ -36,15 +35,7 @@ struct HomeView: View {
         }
     }
     
-    enum MenuFilter: String, CaseIterable {
-        case showAll
-        case Favorites
-        case Espresso
-        case Immersion
-        case Pourover
-        case Drip
-        case Custom
-    }
+
     //MARK: - Init
     init() {
         let request: NSFetchRequest<PastBrew> = PastBrew.fetchRequest()
@@ -56,24 +47,23 @@ struct HomeView: View {
     
     //MARK: - Body
     var body: some View {
-        NavigationView {
+      TabView {
+        Tab("Received", systemImage: "tray.and.arrow.down.fill") {
             ZStack {
-                Color("lightTan")
-                    .ignoresSafeArea()
-                Color("tan")
-                VStack(alignment: .leading, spacing: viewConstants.primarySpacing) {
-                    Spacer()
-                    menuBar
-                    Spacer()
-                    brewCardCarousel
-                    Spacer()
-                    recentlyUsed
-                }
+              Color("lightTan")
+                .ignoresSafeArea()
+              Color("tan")
+              VStack(alignment: .leading, spacing: viewConstants.primarySpacing) {
+                Spacer()
+                MenuBar(menuFilter: $menuFilter, isShowingAddBrewView: $isShowingAddBrewView)
+                Spacer()
+                brewCardCarousel
+                Spacer()
+                recentlyUsed
+              }
             }
-            .toolbar { ToolbarItem(placement: .principal) { toolbarTitle } }
-            .navigationBarItems(leading: logIcon, trailing: settingsIcon)
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+      }
     }
     
     //MARK: - Toolbar
@@ -108,34 +98,8 @@ struct HomeView: View {
     
     //MARK: - Buttons
     
-    var menuBar: some View {
-        HStack {
-            Menu(content: {
-                ForEach(MenuFilter.allCases, id: \.self) { menuCase in
-                        menuButton(text: menuCase == MenuFilter.showAll ? "Show All" : menuCase.rawValue, filter: menuCase)
-                }
-            }, label: {
-                RoundedButton(buttonText: menuFilter == MenuFilter.showAll ? "Show All" : menuFilter.rawValue, buttonImage: "line.horizontal.3.circle", isSelected: true, action: {})
-            })
-            Spacer()
-            Button(action: { showAddBrewView.toggle() }) {
-                Image(systemName: "plus")
-                    .foregroundColor(.white)
-                    .font(.subheadline)
-                    .padding(5)
-                    .background(Circle().foregroundColor(Color("gold")))
-            }
-            .sheet(isPresented: $showAddBrewView, content: {
-                AddBrewView()
-                    .environment(\.colorScheme, .dark)
-            })
-        }
-        .padding(.horizontal)
-    }
 
-    func menuButton(text: String, filter: MenuFilter) -> some View {
-        RoundedButton(buttonText: text, isSelected: (menuFilter == filter), action: { menuFilter = filter })
-    }
+
     
     func setFilter(_ filter: MenuFilter) {
         menuFilter = filter

@@ -121,12 +121,6 @@
       "size" : "83.5x83.5"
     },
     {
-      "filename" : "coffee1024.jpg",
-      "idiom" : "ios-marketing",
-      "scale" : "1x",
-      "size" : "1024x1024"
-    },
-    {
       "filename" : "coffee120.png",
       "idiom" : "car",
       "scale" : "2x",
@@ -137,6 +131,12 @@
       "idiom" : "car",
       "scale" : "3x",
       "size" : "60x60"
+    },
+    {
+      "filename" : "coffee1024.jpg",
+      "idiom" : "ios-marketing",
+      "scale" : "1x",
+      "size" : "1024x1024"
     },
     {
       "filename" : "coffee48.png",
@@ -214,6 +214,13 @@
       "subtype" : "45mm"
     },
     {
+      "idiom" : "watch",
+      "role" : "appLauncher",
+      "scale" : "2x",
+      "size" : "54x54",
+      "subtype" : "49mm"
+    },
+    {
       "filename" : "coffee172.png",
       "idiom" : "watch",
       "role" : "quickLook",
@@ -243,6 +250,13 @@
       "scale" : "2x",
       "size" : "117x117",
       "subtype" : "45mm"
+    },
+    {
+      "idiom" : "watch",
+      "role" : "quickLook",
+      "scale" : "2x",
+      "size" : "129x129",
+      "subtype" : "49mm"
     },
     {
       "filename" : "coffee1024-1.jpg",

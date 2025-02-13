@@ -23,6 +23,7 @@ struct RoundedButton: View {
                 }
                 Text(buttonText)
                     .foregroundColor(isSelected ? Color(.white) : Color(.white))
+                    .font(BBTheme.types.paragraph)
             }
             .disabled(isSelected)
         }
