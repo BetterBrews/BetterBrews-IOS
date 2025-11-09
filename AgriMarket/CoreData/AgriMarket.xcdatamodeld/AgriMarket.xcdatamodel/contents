@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CommodityEntity" representedClassName="CommodityEntity" syncable="YES">
+        <attribute name="category" optional="NO" attributeType="String"/>
+        <attribute name="currentPrice" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="dayChange" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="dayChangePercent" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="NO" attributeType="String"/>
+        <attribute name="isFavorite" optional="NO" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="lastSyncDate" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="lastUpdated" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="marketCap" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <attribute name="name" optional="NO" attributeType="String"/>
+        <attribute name="previousClose" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="symbol" optional="NO" attributeType="String"/>
+        <attribute name="unit" optional="NO" attributeType="String"/>
+        <attribute name="volume" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="priceHistory" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PriceDataEntity" inverseName="commodity" inverseEntity="PriceDataEntity"/>
+    </entity>
+    <entity name="PriceDataEntity" representedClassName="PriceDataEntity" syncable="YES">
+        <attribute name="averagePrice" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="close" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="commodityId" optional="NO" attributeType="String"/>
+        <attribute name="high" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="NO" attributeType="String"/>
+        <attribute name="low" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="open" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="volume" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="commodity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CommodityEntity" inverseName="priceHistory" inverseEntity="CommodityEntity"/>
+    </entity>
+    <entity name="NewsEntity" representedClassName="NewsEntity" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String"/>
+        <attribute name="category" optional="NO" attributeType="String"/>
+        <attribute name="content" optional="NO" attributeType="String"/>
+        <attribute name="id" optional="NO" attributeType="String"/>
+        <attribute name="imageUrl" optional="YES" attributeType="String"/>
+        <attribute name="isRead" optional="NO" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="publishedAt" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="sentiment" optional="NO" attributeType="String"/>
+        <attribute name="source" optional="NO" attributeType="String"/>
+        <attribute name="summary" optional="NO" attributeType="String"/>
+        <attribute name="title" optional="NO" attributeType="String"/>
+        <attribute name="url" optional="NO" attributeType="String"/>
+    </entity>
+    <entity name="PriceAlertEntity" representedClassName="PriceAlertEntity" syncable="YES">
+        <attribute name="commodityId" optional="NO" attributeType="String"/>
+        <attribute name="commodityName" optional="NO" attributeType="String"/>
+        <attribute name="condition" optional="NO" attributeType="String"/>
+        <attribute name="createdAt" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="NO" attributeType="String"/>
+        <attribute name="isActive" optional="NO" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="targetPrice" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="triggeredAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="WeatherDataEntity" representedClassName="WeatherDataEntity" syncable="YES">
+        <attribute name="country" optional="NO" attributeType="String"/>
+        <attribute name="humidity" optional="NO" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="NO" attributeType="String"/>
+        <attribute name="precipitation" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="region" optional="NO" attributeType="String"/>
+        <attribute name="temperature" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="weatherCondition" optional="NO" attributeType="String"/>
+        <attribute name="windSpeed" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+</model>
